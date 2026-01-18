@@ -1,0 +1,15 @@
+{
+  "name": "aura-claude-code-plugin",
+  "owner": {
+    "name": "fahchen",
+    "url": "https://github.com/fahchen"
+  },
+  "plugins": [
+    {
+      "name": "aura",
+      "source": "./",
+      "description": "Real-time HUD for Claude Code sessions - displays status, tools, and attention indicators",
+      "version": "0.1.0"
+    }
+  ]
+}
