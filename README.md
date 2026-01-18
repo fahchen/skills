@@ -9,7 +9,7 @@ Personal Claude Code skills and plugins.
 /plugin marketplace add fahchen/skills
 
 # Install specific plugin
-/plugin install <plugin-name>@skills
+/plugin install <plugin-name>@fahchen-skills
 ```
 
 ## Available Plugins
@@ -19,7 +19,7 @@ Personal Claude Code skills and plugins.
 Real-time HUD for Claude Code sessions - displays status, tools, and attention indicators.
 
 ```bash
-/plugin install aura@skills
+/plugin install aura@fahchen-skills
 ```
 
 **Requires:** [Aura daemon](https://github.com/fahchen/aura) running
