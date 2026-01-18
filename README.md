@@ -30,8 +30,10 @@ Real-time HUD for Claude Code sessions - displays status, tools, and attention i
 skills/
 ├── .claude-plugin/
 │   └── marketplace.json    # Plugin registry
-├── aura/                   # Aura HUD plugin
-│   ├── hooks/
-│   └── skills/
-└── <future-plugin>/        # Add more plugins here
+└── plugins/
+    └── aura/               # Aura HUD plugin
+        ├── .claude-plugin/
+        │   └── plugin.json
+        ├── hooks/
+        └── skills/
 ```

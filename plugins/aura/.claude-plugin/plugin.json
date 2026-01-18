@@ -1,0 +1,5 @@
+{
+  "name": "aura",
+  "version": "0.1.0",
+  "description": "Real-time HUD for Claude Code sessions - displays status, tools, and attention indicators"
+}

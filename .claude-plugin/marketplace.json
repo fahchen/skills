@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "aura",
-      "source": "./aura",
+      "source": "./plugins/aura",
       "description": "Real-time HUD for Claude Code sessions - displays status, tools, and attention indicators",
       "version": "0.1.0"
     }
