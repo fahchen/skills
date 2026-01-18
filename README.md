@@ -1,4 +1,4 @@
-# Aura Claude Code Plugin
+# Aura Skills
 
 Claude Code plugin for [Aura](https://github.com/fahchen/aura) - a real-time HUD that monitors AI coding sessions.
 
@@ -6,10 +6,10 @@ Claude Code plugin for [Aura](https://github.com/fahchen/aura) - a real-time HUD
 
 ```bash
 # Add marketplace
-/plugin marketplace add fahchen/aura-claude-code-plugin
+/plugin marketplace add fahchen/aura-skills
 
 # Install plugin
-/plugin install aura@aura-claude-code-plugin
+/plugin install aura@aura-skills
 ```
 
 ## Prerequisites
