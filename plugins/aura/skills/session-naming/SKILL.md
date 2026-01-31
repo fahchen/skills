@@ -1,7 +1,7 @@
 ---
-name: Aura Session Naming
+name: session-naming
 description: Set descriptive names for Aura HUD session display
-version: 1.0.0
+version: 2.0.0
 ---
 
 # Aura Session Naming
