@@ -95,7 +95,7 @@ Trials, errors, and fixes from development.
 
 ### Step 6: Update CLAUDE.md
 
-If `CLAUDE.md` exists in the project root, append this section:
+Add the following section to `CLAUDE.md` in the project root. If `CLAUDE.md` does not exist, create it. If it already contains a `## Project Knowledge` section, update it in place.
 
 ```markdown
 
@@ -109,8 +109,6 @@ If `CLAUDE.md` exists in the project root, append this section:
 
 Use `/agent-docs:update-knowledge` to capture new learnings after a session.
 ```
-
-If `CLAUDE.md` does not exist, skip this step.
 
 ### Step 7: Report completion
 
