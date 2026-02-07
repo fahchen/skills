@@ -46,6 +46,8 @@ Customer
 
 Discovery continued beyond this snapshot. By consolidation, all rules were checked off and the remaining open question (refund failure) was marked as `@wip`.
 
+Glossary candidates noted during discovery: **dispatch**, **partial cancellation**, **store credit**, **returns flow**, **payment authorisation**.
+
 ---
 
 ## Consolidated Feature File
@@ -203,12 +205,27 @@ initial release.
 
 ---
 
+## Glossary Update
+
+After consolidation, the following terms were proposed for `spec/glossary.md` (confirmed with the user before applying):
+
+| Term | Definition |
+|------|------------|
+| Dispatch | The point at which a warehouse hands a parcel to a carrier for delivery. Cancellation is no longer possible after dispatch. |
+| Partial cancellation | Cancelling individual items from a multi-item order rather than the entire order. Not supported in the initial release. |
+| Payment authorisation | A hold placed on a customer's payment method before funds are captured. Voided when an order is cancelled before capture. |
+| Returns flow | The post-delivery process for returning products and obtaining a refund. Applies to orders that have already been dispatched. |
+| Store credit | A balance held in a customer's account that can be used as a payment method. Restored in full upon cancellation. |
+
+---
+
 ## Final File Structure
 
 After consolidation, the progress file is removed. The resulting tree:
 
 ```
 spec/
+├── glossary.md
 ├── features/
 │   └── orders/
 │       └── order-cancellation.feature

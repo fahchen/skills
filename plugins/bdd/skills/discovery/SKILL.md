@@ -1,12 +1,12 @@
 ---
 name: discovery
-description: This skill should be used when the user asks to "discover a feature", "explore behaviour", "write a feature file", "BDD discovery", "formulate BDD specs", "example mapping", "start a discovery session", "explore a user story", or wants to interactively explore and define system behaviour using BDD patterns.
+description: This skill should be used when the user asks to "discover a feature", "explore behaviour", "write a feature file", "BDD discovery", "formulate BDD specs", "example mapping", "start a discovery session", "resume a discovery session", "explore a user story", or wants to interactively explore and define system behaviour using BDD patterns.
 user-invocable: true
 ---
 
 # BDD Discovery
 
-A unified skill that interleaves feature discovery and behaviour decisions. Run it once per feature, or revisit earlier discoveries to refine rules and add examples. A single session can cover multiple features sequentially — complete one feature's discovery and consolidation before starting the next. Each feature uses its own temporary progress file as working memory. Once discovery consolidates into final outputs (.feature files and/or BDR files), remove the progress file.
+A unified skill that interleaves feature discovery and behaviour decisions. Run once per feature, or revisit earlier discoveries to refine rules and add examples. A single session can cover multiple features sequentially — complete one feature's discovery and consolidation before starting the next. Each feature uses its own temporary progress file as working memory. Once discovery consolidates into final outputs (.feature files and/or BDR files), remove the progress file.
 
 ## File Structure
 
@@ -14,6 +14,7 @@ Organize BDD artifacts within a top-level `spec/` directory (or the project's es
 
 ```
 spec/
+├── glossary.md                            # shared domain terminology
 ├── .discovery/
 │   ├── order-cancellation.md              # temporary — removed after consolidation
 │   └── loyalty-rewards.md                 # multiple discoveries can coexist
@@ -35,6 +36,7 @@ Conventions:
 - **One feature per file** — name the file after the capability (`shopping-cart.feature`, not `test-1.feature`).
 - **Centralize BDRs in `spec/decisions/`** — keeps decision records discoverable regardless of which feature they relate to. The `**Feature**` field in the BDR body links back.
 - **Progress files live in `spec/.discovery/`** — named per feature: `<feature-slug>.md` (e.g., `order-cancellation.md`). Hidden directory to avoid clutter. Multiple discoveries can coexist.
+- **Glossary at `spec/glossary.md`** — shared domain terminology (ubiquitous language) maintained across all discoveries. Table format with Term and Definition columns.
 
 Adapt to an existing project layout when one is already established. These conventions apply when starting fresh.
 
@@ -122,6 +124,26 @@ Do not dump all questions at once. Work in small batches, grouped by topic.
 - **Decisions** — When the user chooses between competing behaviours, capture immediately with reasoning. Flag non-trivial decisions as BDR candidates.
 - **Open questions** — Anything needing stakeholder input or further research. Do not silently assume answers.
 - **Rejected behaviours** — What was explicitly ruled out and why
+- **Domain terms** — New or ambiguous terminology that surfaces during conversation. Flag candidates for the glossary.
+
+### Glossary Maintenance
+
+During discovery, watch for domain terms that are new, ambiguous, or used inconsistently. Read `spec/glossary.md` (if it exists) and check for:
+
+- **New terms** — Domain concepts not yet in the glossary
+- **Conflicting definitions** — A term used differently than its glossary definition
+- **Term merges** — Two terms that refer to the same concept
+
+Do not silently add or modify glossary entries. Present proposed changes to the user for confirmation before applying. The glossary uses a table format:
+
+```markdown
+| Term | Definition |
+|------|------------|
+| Churned subscriber | A customer who cancelled their subscription within the last 30 days |
+| Member | A customer with an active subscription |
+```
+
+If no glossary exists yet, propose creating `spec/glossary.md` with the terms discovered so far.
 
 ### Conflict Detection
 
@@ -173,7 +195,7 @@ Skip BDR generation entirely if no non-trivial decisions were made during discov
 
 **BDR body content is immutable** — never modify the decision rationale or reasoning of an existing BDR. Frontmatter metadata (`status`, `superseded-by`) may be updated for lifecycle tracking. When a decision changes:
 
-1. Create a new BDR with the updated decision, including `**Supersedes**: BDR-XXXX` in its body pointing to the old BDR
+1. Create a new BDR with the updated decision, including `**Supersedes**: BDR-XXXX` in its body alongside the `**Feature**` and `**Rule**` fields (or inside `## Scope` for lightweight format)
 2. In the old BDR, update frontmatter: set `status: superseded` and add `superseded-by: BDR-YYYY` pointing to the new BDR
 3. Do not change the old BDR's body or any other frontmatter fields
 
@@ -188,9 +210,21 @@ After generating all files, scan the full `spec/` directory for:
 
 If conflicts are found, present them to the user with resolution options (same approach as the discovery-phase conflict detection). Do not silently overwrite or ignore.
 
-### 4. Remove the Progress File
+### 4. Update the Glossary
 
-Delete the progress file (e.g., `spec/.discovery/order-cancellation.md`). All discovery state is now captured in the generated .feature and BDR files. The progress file has served its purpose.
+Review all domain terms that surfaced during discovery. Compare against `spec/glossary.md` and propose changes to the user:
+
+- **Add** new terms not yet in the glossary
+- **Update** definitions that evolved during discovery
+- **Merge** terms discovered to be synonyms (keep one, note the alias)
+
+Present all proposed changes as a batch for the user to confirm before applying.
+
+When a glossary term is updated or merged, scan all existing `.feature` files for usages of the old term. Propose updates to affected scenarios to maintain consistency. Check whether the term change affects the intent of any rules — if so, flag the affected features for the user to review before modifying.
+
+### 5. Remove the Progress File
+
+Delete the progress file (e.g., `spec/.discovery/order-cancellation.md`). If no other discoveries are in progress, remove the `spec/.discovery/` directory as well. All discovery state is now captured in the generated .feature and BDR files. The progress file has served its purpose.
 
 ## Feature File Anatomy
 
@@ -256,7 +290,6 @@ title: [Decision Title]
 status: accepted | rejected | deferred | superseded
 date: YYYY-MM-DD
 summary: [One-line summary capturing the essence of the decision]
-# superseded-by: BDR-YYYY  <!-- added when this BDR is superseded -->
 ---
 
 **Feature**: [path relative to spec/features/ directory]
@@ -329,6 +362,8 @@ Apply this checklist before consolidation:
 - [ ] BDR candidates identified for non-trivial decisions
 - [ ] No conflicts with existing .feature files and BDRs (or conflicts resolved)
 - [ ] Superseded BDRs have status updated; no existing BDR content was modified
+- [ ] Glossary updated with new/changed terms (confirmed with user)
+- [ ] Terms in .feature files consistent with glossary definitions
 - [ ] Progress file will be removed after consolidation
 
 ## Reference
