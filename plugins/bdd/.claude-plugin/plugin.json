@@ -1,5 +1,5 @@
 {
   "name": "bdd",
   "description": "Guided BDD discovery — interactively explore features, surface rules and examples, and consolidate into .feature and BDR files",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
