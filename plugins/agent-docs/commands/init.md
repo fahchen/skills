@@ -12,9 +12,10 @@ Set up a `docs/agents/` knowledge base for AI agents working on this project.
 ```
 project/
 ├── docs/agents/
-│   ├── knowledge.md      # Patterns, design decisions
-│   ├── patterns.md       # Standard implementations
-│   └── improvements.md   # Debugging lessons
+│   ├── knowledge.md      # Compact guardrails — always loaded into context
+│   ├── patterns.md       # Implementation catalog — always loaded, read source on demand
+│   ├── improvements.md   # Lessons learned — only titles loaded, read detail on demand
+│   └── postmortems/      # Wrong-path writeups — only frontmatter loaded, read on demand
 └── CLAUDE.md             # Updated with Project Knowledge section
 ```
 
@@ -35,21 +36,21 @@ mkdir -p <chosen-path>
 ### Step 3: Create `<chosen-path>/knowledge.md`
 
 ```markdown
-# Project Knowledge
+# Knowledge
 
-Implementation patterns and design decisions.
+Compact rules and constraints. This file is **always loaded into agent context** — keep it concise. No code blocks; put implementation examples in `patterns.md`.
 
-<!-- Add entries using this format:
+When a lesson from `improvements.md` becomes a standing rule, **graduate it here** and remove the improvement entry to avoid duplication.
 
-## [Category]
+<!-- Entry format:
 
-### [Pattern Name]
+### [Title]
 
-**Rule:** What to do
+**Rule:** One-line actionable constraint.
 
-**Why:** Why it matters
+**Why:** One-line rationale (skip if self-evident).
 
-**Reference:** `path/to/file.ts:line` - brief description
+**Reference:** `path/to/file:line` (optional)
 -->
 ```
 
@@ -58,15 +59,17 @@ Implementation patterns and design decisions.
 ```markdown
 # Patterns
 
-Standard implementations. Use file references as authoritative source.
+Implementation catalog with file references. This file is **always loaded into agent context** — keep entries short. Source files are authoritative; this file points to them.
 
-<!-- Add entries using this format:
+When adding a pattern, check if a matching rule exists in `knowledge.md`. Rules say "what/why"; patterns say "where to look for how."
 
-## [Pattern Name]
+<!-- Entry format:
 
-Brief description of when to use this pattern.
+### [Title]
 
-**Reference:** `path/to/file.ts:line-line`
+One-line description of when to use this pattern.
+
+**Reference:** `path/to/file:line-line`
 -->
 ```
 
@@ -75,11 +78,15 @@ Brief description of when to use this pattern.
 ```markdown
 # Improvements
 
-Trials, errors, and fixes from development.
+Lessons from wrong turns. Only **titles are loaded into agent context** — the agent reads full entries on demand when a title seems relevant to the current task.
 
-<!-- Add dated entries using this format:
+If a lesson becomes a standing rule, **graduate it to `knowledge.md`** and remove it from here.
 
-## YYYYMMDD: [Brief Title]
+Detailed incident writeups with full context live in `postmortems/`.
+
+<!-- Entry format:
+
+## YYYYMMDD: [Title that describes the lesson, not just the incident]
 
 **Problem:** What went wrong
 
@@ -87,13 +94,19 @@ Trials, errors, and fixes from development.
 
 **Fix:** How it was resolved
 
-**Lesson:** What to remember
+**Guardrail:** What quick check prevents this next time
 
-**Reference:** `path/to/file.ts`
+**Reference:** `path/to/file` or `postmortems/YYYY-MM-DD-slug.md`
 -->
 ```
 
-### Step 6: Update CLAUDE.md
+### Step 6: Create postmortems directory
+
+```bash
+mkdir -p <chosen-path>/postmortems
+```
+
+### Step 7: Update CLAUDE.md
 
 Add the following section to `CLAUDE.md` in the project root. If `CLAUDE.md` does not exist, create it. If it already contains a `## Project Knowledge` section, update it in place.
 
@@ -101,17 +114,19 @@ Add the following section to `CLAUDE.md` in the project root. If `CLAUDE.md` doe
 
 ## Project Knowledge
 
-**MUST read before coding:** Review [<chosen-path>](<chosen-path>) and follow the established patterns:
+Before coding, load project knowledge into context:
 
-- `knowledge.md`: Naming conventions, design decisions
-- `patterns.md`: Logging, testing, standard implementations
-- `improvements.md`: Past mistakes to avoid
+1. **Read fully:** `<chosen-path>/knowledge.md` and `<chosen-path>/patterns.md` — these are compact and always relevant
+2. **Scan titles only:** `<chosen-path>/improvements.md` — read the `## YYYYMMDD: Title` headings. Read the full entry only when a title is relevant to your current task
+3. **Scan frontmatter only:** `<chosen-path>/postmortems/*.md` — read the YAML `description:` field and file path. Read the full postmortem only when relevant
 
 Use `/agent-docs:update-knowledge` to capture new learnings after a session.
 ```
 
-### Step 7: Report completion
+### Step 8: Report completion
 
 List created files and remind the user:
-- Populate `knowledge.md` with patterns as they learn the codebase
+- `knowledge.md` — add rules as constraints are discovered (keep concise, no code blocks)
+- `patterns.md` — add implementation pointers as patterns emerge (reference source files)
+- `improvements.md` — graduate recurring lessons into `knowledge.md` rules
 - Use `/agent-docs:update-knowledge` after sessions to capture learnings

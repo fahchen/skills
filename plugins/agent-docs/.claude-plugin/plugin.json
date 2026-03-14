@@ -1,5 +1,5 @@
 {
   "name": "agent-docs",
-  "description": "Initialize agent documentation structure for projects",
-  "version": "1.1.0"
+  "description": "Tiered agent knowledge base — compact guardrails, implementation catalog, and postmortems with graduated learning",
+  "version": "2.0.0"
 }
