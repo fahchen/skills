@@ -4,8 +4,16 @@ Initialize agent documentation structure for any project.
 
 ## Usage
 
-```
+Claude Code:
+
+```text
 /agent-docs:init
+```
+
+Codex:
+
+```text
+$agent-docs
 ```
 
 ## What It Creates
@@ -24,6 +32,12 @@ project/
 
 - `/agent-docs:init` - Initialize docs/agents/ structure
 - `/agent-docs:update-knowledge` - Capture learnings from current session
+
+## Codex Skill
+
+Install `.codex/skills/agent-docs` into `~/.codex/skills/`.
+
+The single Codex skill routes between initialization and knowledge-maintenance workflows.
 
 ## How Context Loading Works
 

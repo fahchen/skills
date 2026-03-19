@@ -1,8 +1,10 @@
 # Skills
 
-Personal Claude Code skills and plugins.
+Personal Claude Code plugins, with matching Codex skills published directly under `.codex/skills/`.
 
 ## Installation
+
+### Claude Code
 
 ```bash
 # Add marketplace (once)
@@ -12,28 +14,63 @@ Personal Claude Code skills and plugins.
 /plugin install <plugin-name>@fahchen-skills
 ```
 
+### Codex
+
+Copy the skill you want from `.codex/skills/` into `~/.codex/skills/`, then restart Codex.
+
+```bash
+cp -R .codex/skills/<skill-name> ~/.codex/skills/
+```
+
+This repo intentionally ships only three Codex skills:
+
+- `aura`
+- `bdd`
+- `agent-docs`
+
 ## Available Plugins
 
 ### aura
 
-Real-time HUD for Claude Code sessions - displays status, tools, and attention indicators.
+Real-time HUD integration for Claude Code and Codex sessions.
 
-```bash
-/plugin install aura@fahchen-skills
-```
+- Claude Code: `/plugin install aura@fahchen-skills`
+- Codex: `cp -R .codex/skills/aura ~/.codex/skills/`
+- Requires: [Aura daemon](https://github.com/fahchen/aura) running
 
-**Requires:** [Aura daemon](https://github.com/fahchen/aura) running
+### bdd
+
+BDD discovery and consistency-checking workflows for specification work.
+
+- Claude Code: `/plugin install bdd@fahchen-skills`
+- Codex: `cp -R .codex/skills/bdd ~/.codex/skills/`
+
+### agent-docs
+
+Tiered project knowledge base bootstrap and maintenance for agent-driven projects.
+
+- Claude Code: `/plugin install agent-docs@fahchen-skills`
+- Codex: `cp -R .codex/skills/agent-docs ~/.codex/skills/`
 
 ## Structure
 
-```
+```text
 skills/
 ├── .claude-plugin/
-│   └── marketplace.json    # Plugin registry
+│   └── marketplace.json
+├── .codex/
+│   └── skills/
+│       ├── agent-docs/
+│       ├── aura/
+│       └── bdd/
 └── plugins/
-    └── aura/               # Aura HUD plugin
+    └── <plugin>/
         ├── .claude-plugin/
         │   └── plugin.json
+        ├── commands/
         ├── hooks/
+        ├── references/
         └── skills/
 ```
+
+Claude stays plugin-based. Codex gets one self-contained skill per plugin, in the same style as repositories like `planning-with-files`.
