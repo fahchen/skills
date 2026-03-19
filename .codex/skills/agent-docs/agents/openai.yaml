@@ -1,0 +1,8 @@
+interface:
+  display_name: "Agent Docs"
+  short_description: "Initialize and maintain agent docs"
+  brand_color: "#0F766E"
+  default_prompt: "Use $agent-docs to initialize docs/agents or capture new project knowledge from this session."
+
+policy:
+  allow_implicit_invocation: true
