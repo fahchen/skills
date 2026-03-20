@@ -228,11 +228,13 @@ Create Behaviour Decision Records only for significant decisions — especially 
 
 Skip BDR generation entirely if no non-trivial decisions were made during discovery.
 
-**BDR body content is immutable** — never modify the decision rationale or reasoning of an existing BDR. Frontmatter metadata (`status`, `superseded-by`) may be updated for lifecycle tracking. When a decision changes:
+**BDR body editing rules** — distinguish between completing and conflicting:
 
-1. Create a new BDR with the updated decision, including `**Supersedes**: BDR-XXXX` in its body alongside the `**Feature**` and `**Rule**` fields (or inside `## Scope` for lightweight format)
-2. In the old BDR, update frontmatter: set `status: superseded` and add `superseded-by: BDR-YYYY` pointing to the new BDR
-3. Do not change the old BDR's body or any other frontmatter fields
+- **Completing or supplementing** — When adding missing detail, expanding context, or enriching an existing BDR without changing its decision conclusion, the body may be edited directly. Frontmatter metadata (`status`, `superseded-by`) may always be updated for lifecycle tracking.
+- **Conflicting decisions** — When a new decision contradicts or reverses an existing BDR's conclusion, do not overwrite the body. Instead:
+  1. Create a new BDR with the updated decision, including `**Supersedes**: BDR-XXXX` in its body alongside the `**Feature**` and `**Rule**` fields (or inside `## Scope` for lightweight format)
+  2. In the old BDR, update frontmatter: set `status: superseded` and add `superseded-by: BDR-YYYY` pointing to the new BDR
+  3. Do not change the old BDR's body or any other frontmatter fields
 
 This creates a bidirectional link — the old BDR points forward, the new BDR points back — and preserves the full decision history.
 
@@ -435,7 +437,7 @@ Apply this checklist before consolidation:
 - [ ] Rejected behaviours have recorded reasoning
 - [ ] BDR candidates identified for non-trivial decisions
 - [ ] No conflicts with existing .feature files and BDRs (or conflicts resolved)
-- [ ] Superseded BDRs have status updated; no existing BDR content was modified
+- [ ] Superseded BDRs have status updated; conflicting BDR decisions were not overwritten (supersession used instead of body edits)
 - [ ] Glossary updated with new/changed terms (confirmed with user)
 - [ ] Terms in .feature files consistent with glossary definitions
 - [ ] Progress file will be removed after consolidation

@@ -1,7 +1,7 @@
 ---
 name: bdd
 description: Use this skill for BDD discovery, feature exploration, example mapping, feature-file drafting, and consistency checks across BDD artifacts.
-version: 1.2.0
+version: 1.3.0
 user-invocable: true
 ---
 

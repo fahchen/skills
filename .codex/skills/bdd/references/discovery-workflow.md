@@ -160,6 +160,11 @@ Overwrite existing `.feature` files for the same capability; they represent the 
 
 Create BDRs for non-trivial decisions. Skip BDR creation if no non-trivial decisions were made.
 
+When updating an existing BDR:
+
+- **Completing or supplementing** (adding detail, expanding context without changing the decision) — edit the body directly.
+- **Conflicting decision** (reversing or contradicting the existing conclusion) — create a new superseding BDR; do not overwrite the old body.
+
 ### Update Glossary
 
 Propose glossary additions or updates discovered during the session.

@@ -101,7 +101,8 @@ Present all conflicts as a batch. Ask the user to confirm, adjust, or reject eac
 For confirmed resolutions:
 
 - Modify the existing spec files to align with the changes
-- If a BDR is affected, follow the immutability rule: create a new superseding BDR rather than editing the body
+- If a BDR requires a **conflicting change** (decision reversal or contradictory reasoning), create a new superseding BDR rather than editing the existing body — never overwrite a BDR body when the change introduces a contradiction
+- If a BDR only needs **completion or supplementation** (adding missing detail or expanding context without changing the decision conclusion), the body may be edited directly
 - Update glossary if term definitions changed
 - Record each resolution in the findings ledger
 
@@ -159,7 +160,7 @@ Ask the user to resolve each conflict (or group related conflicts for batch reso
 
 ### 5. Apply Resolutions
 
-Same as incremental mode step 5. Follow BDR immutability rules. Track cascading changes.
+Same as incremental mode step 5. Follow BDR body editing rules — edit directly when supplementing, supersede when the decision itself conflicts. Track cascading changes.
 
 ### 6. Verification Pass
 

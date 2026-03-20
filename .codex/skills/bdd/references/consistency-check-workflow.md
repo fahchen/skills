@@ -83,7 +83,8 @@ Ask the user to confirm, adjust, or reject the proposed resolutions.
 For confirmed resolutions:
 
 - update existing spec files
-- if a BDR changes, create a superseding BDR instead of rewriting the old body
+- if a BDR has a **conflicting change** (decision reversal or contradictory reasoning), create a superseding BDR instead of rewriting the old body
+- if a BDR only needs **completion or supplementation** (adding detail without changing the decision), edit the body directly
 - update glossary as needed
 
 ### 6. Cleanup
