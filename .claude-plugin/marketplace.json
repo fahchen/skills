@@ -7,31 +7,31 @@
   "plugins": [
     {
       "name": "aura",
-      "source": "./plugins/aura",
+      "source": "./plugins/aura/claude-code",
       "description": "Real-time HUD for Claude Code sessions - displays status, tools, and attention indicators",
       "version": "2.0.0"
     },
     {
       "name": "agent-docs",
-      "source": "./plugins/agent-docs",
+      "source": "./plugins/agent-docs/claude-code",
       "description": "Tiered agent knowledge base — compact guardrails, implementation catalog, and postmortems with graduated learning",
       "version": "2.0.0"
     },
     {
       "name": "bdd",
-      "source": "./plugins/bdd",
+      "source": "./plugins/bdd/claude-code",
       "description": "Guided BDD discovery — interactively explore features, surface rules and examples, and consolidate into .feature and BDR files",
       "version": "1.3.0"
     },
     {
       "name": "handoff",
-      "source": "./plugins/handoff",
+      "source": "./plugins/handoff/claude-code",
       "description": "Concise handoff notes for ongoing work — capture status, completed work, human decisions, blockers, and one concrete next step",
       "version": "0.1.0"
     },
     {
       "name": "workflow",
-      "source": "./plugins/workflow",
+      "source": "./plugins/workflow/claude-code",
       "description": "Engineering workflow: reasoning framework, plan/code modes, code quality, and git conventions",
       "version": "1.0.0"
     }

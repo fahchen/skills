@@ -35,7 +35,7 @@ project/
 
 ## Codex Skill
 
-Install `.codex/skills/agent-docs` into `~/.codex/skills/`.
+Copy `plugins/agent-docs/codex/` into `~/.codex/skills/agent-docs`.
 
 The single Codex skill routes between initialization and knowledge-maintenance workflows.
 

@@ -1,6 +1,6 @@
 # Skills
 
-Personal Claude Code plugins, with matching Codex skills published directly under `.codex/skills/`.
+Personal Claude Code plugins and matching Codex skills, co-located per plugin under `plugins/`.
 
 ## Installation
 
@@ -16,19 +16,11 @@ Personal Claude Code plugins, with matching Codex skills published directly unde
 
 ### Codex
 
-Copy the skill you want from `.codex/skills/` into `~/.codex/skills/`, then restart Codex.
+Copy the skill you want from `plugins/<skill-name>/codex/` into `~/.codex/skills/`, then restart Codex.
 
 ```bash
-cp -R .codex/skills/<skill-name> ~/.codex/skills/
+cp -R plugins/<skill-name>/codex ~/.codex/skills/<skill-name>
 ```
-
-This repo currently ships five Codex skills:
-
-- `aura`
-- `bdd`
-- `agent-docs`
-- `handoff`
-- `workflow`
 
 ## Available Plugins
 
@@ -37,7 +29,7 @@ This repo currently ships five Codex skills:
 Real-time HUD integration for Claude Code and Codex sessions.
 
 - Claude Code: `/plugin install aura@fahchen-skills`
-- Codex: `cp -R .codex/skills/aura ~/.codex/skills/`
+- Codex: `cp -R plugins/aura/codex ~/.codex/skills/aura`
 - Requires: [Aura daemon](https://github.com/fahchen/aura) running
 
 ### bdd
@@ -45,28 +37,28 @@ Real-time HUD integration for Claude Code and Codex sessions.
 BDD discovery and consistency-checking workflows for specification work.
 
 - Claude Code: `/plugin install bdd@fahchen-skills`
-- Codex: `cp -R .codex/skills/bdd ~/.codex/skills/`
+- Codex: `cp -R plugins/bdd/codex ~/.codex/skills/bdd`
 
 ### agent-docs
 
 Tiered project knowledge base bootstrap and maintenance for agent-driven projects.
 
 - Claude Code: `/plugin install agent-docs@fahchen-skills`
-- Codex: `cp -R .codex/skills/agent-docs ~/.codex/skills/`
+- Codex: `cp -R plugins/agent-docs/codex ~/.codex/skills/agent-docs`
 
 ### handoff
 
 Concise transfer notes for ongoing work, with explicit human decisions and one clear next step.
 
 - Claude Code: `/plugin install handoff@fahchen-skills`
-- Codex: `cp -R .codex/skills/handoff ~/.codex/skills/`
+- Codex: `cp -R plugins/handoff/codex ~/.codex/skills/handoff`
 
 ### workflow
 
 Engineering workflow guidance for planning, implementation, and code review.
 
 - Claude Code: `/plugin install workflow@fahchen-skills`
-- Codex: `cp -R .codex/skills/workflow ~/.codex/skills/`
+- Codex: `cp -R plugins/workflow/codex ~/.codex/skills/workflow`
 
 ## Structure
 
@@ -74,21 +66,17 @@ Engineering workflow guidance for planning, implementation, and code review.
 skills/
 ├── .claude-plugin/
 │   └── marketplace.json
-├── .codex/
-│   └── skills/
-│       ├── agent-docs/
-│       ├── aura/
-│       ├── bdd/
-│       ├── handoff/
-│       └── workflow/
 └── plugins/
     └── <plugin>/
-        ├── .claude-plugin/
-        │   └── plugin.json
-        ├── commands/
-        ├── hooks/
-        ├── references/
-        └── skills/
+        ├── claude-code/         # Claude Code plugin
+        │   ├── .claude-plugin/
+        │   │   └── plugin.json
+        │   ├── commands/
+        │   ├── hooks/
+        │   ├── references/
+        │   └── skills/
+        └── codex/               # Codex skill
+            ├── agents/
+            ├── references/
+            └── SKILL.md
 ```
-
-Claude stays plugin-based. Codex gets one self-contained skill per plugin, in the same style as repositories like `planning-with-files`.
