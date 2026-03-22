@@ -1,0 +1,12 @@
+{
+  "name": "handoff",
+  "description": "Concise handoff notes for ongoing work — capture status, completed work, human decisions, blockers, and one concrete next step",
+  "version": "0.1.0",
+  "triggers": [
+    "hand off",
+    "handoff",
+    "transfer note",
+    "resume checkpoint",
+    "summarize for handoff"
+  ]
+}

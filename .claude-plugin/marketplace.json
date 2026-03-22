@@ -22,6 +22,12 @@
       "source": "./plugins/bdd",
       "description": "Guided BDD discovery — interactively explore features, surface rules and examples, and consolidate into .feature and BDR files",
       "version": "1.3.0"
+    },
+    {
+      "name": "handoff",
+      "source": "./plugins/handoff",
+      "description": "Concise handoff notes for ongoing work — capture status, completed work, human decisions, blockers, and one concrete next step",
+      "version": "0.1.0"
     }
   ]
 }

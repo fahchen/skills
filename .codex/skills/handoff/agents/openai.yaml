@@ -1,0 +1,7 @@
+interface:
+  display_name: "Handoff"
+  short_description: "Create concise handoff notes"
+  default_prompt: "Use $handoff when the user explicitly asks for a handoff note, transfer summary, or resume checkpoint."
+
+policy:
+  allow_implicit_invocation: false
