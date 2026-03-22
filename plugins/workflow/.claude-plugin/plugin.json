@@ -1,0 +1,5 @@
+{
+  "name": "workflow",
+  "version": "1.0.0",
+  "description": "Engineering workflow: reasoning framework, plan/code modes, code quality, and git conventions"
+}

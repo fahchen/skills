@@ -1,0 +1,7 @@
+interface:
+  display_name: "Workflow"
+  short_description: "Plan, code, and review engineering work"
+  default_prompt: "Use $workflow to plan, implement, or review engineering tasks — supports plan/code/review modes with reasoning guardrails and code quality expectations."
+
+policy:
+  allow_implicit_invocation: true

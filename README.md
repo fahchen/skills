@@ -22,12 +22,13 @@ Copy the skill you want from `.codex/skills/` into `~/.codex/skills/`, then rest
 cp -R .codex/skills/<skill-name> ~/.codex/skills/
 ```
 
-This repo currently ships four Codex skills:
+This repo currently ships five Codex skills:
 
 - `aura`
 - `bdd`
 - `agent-docs`
 - `handoff`
+- `workflow`
 
 ## Available Plugins
 
@@ -60,6 +61,13 @@ Concise transfer notes for ongoing work, with explicit human decisions and one c
 - Claude Code: `/plugin install handoff@fahchen-skills`
 - Codex: `cp -R .codex/skills/handoff ~/.codex/skills/`
 
+### workflow
+
+Engineering workflow guidance for planning, implementation, and code review.
+
+- Claude Code: `/plugin install workflow@fahchen-skills`
+- Codex: `cp -R .codex/skills/workflow ~/.codex/skills/`
+
 ## Structure
 
 ```text
@@ -71,7 +79,8 @@ skills/
 │       ├── agent-docs/
 │       ├── aura/
 │       ├── bdd/
-│       └── handoff/
+│       ├── handoff/
+│       └── workflow/
 └── plugins/
     └── <plugin>/
         ├── .claude-plugin/

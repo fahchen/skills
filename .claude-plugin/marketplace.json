@@ -28,6 +28,12 @@
       "source": "./plugins/handoff",
       "description": "Concise handoff notes for ongoing work — capture status, completed work, human decisions, blockers, and one concrete next step",
       "version": "0.1.0"
+    },
+    {
+      "name": "workflow",
+      "source": "./plugins/workflow",
+      "description": "Engineering workflow: reasoning framework, plan/code modes, code quality, and git conventions",
+      "version": "1.0.0"
     }
   ]
 }
