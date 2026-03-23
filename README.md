@@ -60,6 +60,16 @@ Engineering workflow guidance for planning, implementation, and code review.
 - Claude Code: `/plugin install workflow@fahchen-skills`
 - Codex: `cp -R plugins/workflow/codex ~/.codex/skills/workflow`
 
+## Releasing a New Version
+
+When updating a plugin, bump the version in **all three places** (keep them in sync):
+
+1. `.claude-plugin/marketplace.json` — the `version` field for the plugin entry
+2. `plugins/<name>/claude-code/.claude-plugin/plugin.json` — the Claude Code plugin version
+3. `plugins/<name>/codex/SKILL.md` — the `version:` frontmatter field
+
+Use semantic versioning: patch for fixes/copy, minor for new features/rules, major for breaking API changes.
+
 ## Structure
 
 ```text
