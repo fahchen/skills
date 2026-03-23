@@ -1,7 +1,7 @@
 ---
 name: agent-docs
 description: Use this skill to initialize or maintain a tiered docs/agents knowledge base for a project.
-version: 2.0.0
+version: 2.1.0
 user-invocable: true
 allowed-tools:
   - Read

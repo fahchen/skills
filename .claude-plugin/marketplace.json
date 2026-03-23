@@ -15,7 +15,7 @@
       "name": "agent-docs",
       "source": "./plugins/agent-docs/claude-code",
       "description": "Tiered agent knowledge base — compact guardrails, implementation catalog, and postmortems with graduated learning",
-      "version": "2.0.0"
+      "version": "2.1.0"
     },
     {
       "name": "bdd",

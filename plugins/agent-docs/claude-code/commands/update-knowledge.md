@@ -17,15 +17,17 @@ When new knowledge is gained during development, update the appropriate knowledg
 
 ## Rules
 
-1. **No duplication across files.** A lesson appears in ONE place. If an improvement becomes a standing rule, move it to `knowledge.md` and remove the improvement entry. If a pattern overlaps a rule, the rule goes in `knowledge.md` (what/why) and the pattern goes in `patterns.md` (where to look).
+1. **Good code over documentation.** Before writing a `patterns.md` or `knowledge.md` entry for a pattern, ask: can this be expressed as well-written code? A shared component, named function, or clear API is better than an external doc entry. Document only constraints, non-obvious decisions, and context that cannot live in the code itself. Bug fixes already reflected in the code do not need a knowledge entry.
 
-2. **No code blocks in knowledge.md.** Rules are constraints, not implementations. Point to `patterns.md` or source files for code examples.
+2. **No duplication across files.** A lesson appears in ONE place. If an improvement becomes a standing rule, move it to `knowledge.md` and remove the improvement entry. If a pattern overlaps a rule, the rule goes in `knowledge.md` (what/why) and the pattern goes in `patterns.md` (where to look).
 
-3. **Prefer pointers to copies.** Use `file:line` references instead of code snippets. Source files are authoritative — copied code goes stale.
+3. **No code blocks in knowledge.md.** Rules are constraints, not implementations. Point to `patterns.md` or source files for code examples.
 
-4. **Verify references.** When referenced files are modified, check that `file:line` pointers are still accurate.
+4. **Prefer pointers to copies.** Use `file:line` references instead of code snippets. Source files are authoritative — copied code goes stale.
 
-5. **Graduate improvements.** After an improvement entry is applied 2+ times, or when it represents a permanent constraint, extract the rule into `knowledge.md` and remove the improvement entry.
+5. **Verify references.** When referenced files are modified, check that `file:line` pointers are still accurate.
+
+6. **Graduate improvements.** After an improvement entry is applied 2+ times, or when it represents a permanent constraint, extract the rule into `knowledge.md` and remove the improvement entry.
 
 ## Entry Formats
 

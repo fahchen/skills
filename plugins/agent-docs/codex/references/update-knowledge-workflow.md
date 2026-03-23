@@ -13,11 +13,12 @@ When new knowledge is gained during development, update the appropriate knowledg
 
 ## Rules
 
-1. No duplication across files
-2. No code blocks in `knowledge.md`
-3. Prefer pointers to copies
-4. Verify file references after edits
-5. Graduate repeated improvements into `knowledge.md`
+1. Good code over documentation — ask if a pattern can be expressed as well-written code (shared component, named function, clear API) before writing a doc entry. Document only constraints, non-obvious decisions, and context that cannot live in the code. Bug fixes already in the code do not need a knowledge entry.
+2. No duplication across files
+3. No code blocks in `knowledge.md`
+4. Prefer pointers to copies
+5. Verify file references after edits
+6. Graduate repeated improvements into `knowledge.md`
 
 ## Categorize
 
