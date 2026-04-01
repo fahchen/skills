@@ -1,5 +1,5 @@
 {
   "name": "agent-docs",
   "description": "Tiered agent knowledge base — compact guardrails, implementation catalog, and postmortems with graduated learning",
-  "version": "2.1.0"
+  "version": "2.2.0"
 }
