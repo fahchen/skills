@@ -25,7 +25,7 @@ When new knowledge is gained during development, update the appropriate knowledg
 
 4. **No duplication across files.** A lesson appears in ONE place. If an improvement becomes a standing rule, move it to `knowledge.md` and remove the improvement entry. If a pattern overlaps a rule, the rule goes in `knowledge.md` (what/why) and the pattern goes in `patterns.md` (where to look).
 
-5. **No code blocks in knowledge.md.** Rules are constraints, not implementations. Point to `patterns.md` or source files for code examples.
+5. **Minimize code blocks in knowledge.md.** Rules are constraints, not implementations. Prefer pointing to `patterns.md` or source files. Add a short code example only when it meaningfully clarifies a rule that would otherwise be ambiguous.
 
 6. **Prefer pointers to copies.** Use `file:line` references instead of code snippets. Source files are authoritative — copied code goes stale.
 

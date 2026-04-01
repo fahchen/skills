@@ -17,7 +17,7 @@ When new knowledge is gained during development, update the appropriate knowledg
 2. Generic rules only — rules must be principle-based, not tied to specific module names, function signatures, or file paths. If a rule only applies to one call site, it does not belong in `knowledge.md`.
 3. Merge or resolve before adding — scan existing entries first. Merge similar entries; resolve conflicts. Prefer fewer, stronger rules over many narrow ones.
 4. No duplication across files
-5. No code blocks in `knowledge.md`
+5. Minimize code blocks in `knowledge.md` — add one only when it meaningfully clarifies a rule that would otherwise be ambiguous
 6. Prefer pointers to copies
 7. Verify file references after edits
 8. Graduate repeated improvements into `knowledge.md`

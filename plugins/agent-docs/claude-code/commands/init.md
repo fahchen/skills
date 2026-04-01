@@ -38,7 +38,7 @@ mkdir -p <chosen-path>
 ```markdown
 # Knowledge
 
-Compact rules and constraints. This file is **always loaded into agent context** — keep it concise. No code blocks; put implementation examples in `patterns.md`.
+Compact rules and constraints. This file is **always loaded into agent context** — keep it concise. Prefer prose; add a short code block only when it meaningfully clarifies a rule that would otherwise be ambiguous. Put implementation examples in `patterns.md`.
 
 When a lesson from `improvements.md` becomes a standing rule, **graduate it here** and remove the improvement entry to avoid duplication.
 
