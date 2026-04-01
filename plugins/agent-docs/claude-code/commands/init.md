@@ -42,6 +42,8 @@ Compact rules and constraints. This file is **always loaded into agent context**
 
 When a lesson from `improvements.md` becomes a standing rule, **graduate it here** and remove the improvement entry to avoid duplication.
 
+> **Rules must be generic and principle-based.** Do not include specific module names, function signatures, file paths, or implementation examples — those are derivable from the code. Capture only non-obvious design decisions, constraints, and invariants that cannot be inferred by reading the source. Before adding a new rule, check for similar or conflicting entries and merge/resolve rather than accumulate.
+
 <!-- Entry format:
 
 ### [Title]

@@ -19,15 +19,19 @@ When new knowledge is gained during development, update the appropriate knowledg
 
 1. **Good code over documentation.** Before writing a `patterns.md` or `knowledge.md` entry for a pattern, ask: can this be expressed as well-written code? A shared component, named function, or clear API is better than an external doc entry. Document only constraints, non-obvious decisions, and context that cannot live in the code itself. Bug fixes already reflected in the code do not need a knowledge entry.
 
-2. **No duplication across files.** A lesson appears in ONE place. If an improvement becomes a standing rule, move it to `knowledge.md` and remove the improvement entry. If a pattern overlaps a rule, the rule goes in `knowledge.md` (what/why) and the pattern goes in `patterns.md` (where to look).
+2. **Generic rules only.** Rules in `knowledge.md` must be principle-based and reusable — not tied to specific module names, function signatures, file paths, or current implementation details. Those are derivable from the code. If a rule only applies to one specific call site, it does not belong in `knowledge.md`.
 
-3. **No code blocks in knowledge.md.** Rules are constraints, not implementations. Point to `patterns.md` or source files for code examples.
+3. **Merge or resolve before adding.** Before writing a new entry, scan existing entries for similar or conflicting content. If a similar entry exists, update or merge it. If a conflict exists, resolve it — do not let contradictory rules coexist. Prefer fewer, stronger rules over many narrow ones.
 
-4. **Prefer pointers to copies.** Use `file:line` references instead of code snippets. Source files are authoritative — copied code goes stale.
+4. **No duplication across files.** A lesson appears in ONE place. If an improvement becomes a standing rule, move it to `knowledge.md` and remove the improvement entry. If a pattern overlaps a rule, the rule goes in `knowledge.md` (what/why) and the pattern goes in `patterns.md` (where to look).
 
-5. **Verify references.** When referenced files are modified, check that `file:line` pointers are still accurate.
+5. **No code blocks in knowledge.md.** Rules are constraints, not implementations. Point to `patterns.md` or source files for code examples.
 
-6. **Graduate improvements.** After an improvement entry is applied 2+ times, or when it represents a permanent constraint, extract the rule into `knowledge.md` and remove the improvement entry.
+6. **Prefer pointers to copies.** Use `file:line` references instead of code snippets. Source files are authoritative — copied code goes stale.
+
+7. **Verify references.** When referenced files are modified, check that `file:line` pointers are still accurate.
+
+8. **Graduate improvements.** After an improvement entry is applied 2+ times, or when it represents a permanent constraint, extract the rule into `knowledge.md` and remove the improvement entry.
 
 ## Entry Formats
 
@@ -102,7 +106,8 @@ When a session includes a significant wrong path (user correction, surprising fa
 
 1. Review the current conversation and identify new knowledge to capture.
 2. For each piece of knowledge, determine the right file (see Categorize above).
-3. Check for duplication — does a similar entry already exist? Update rather than duplicate.
+3. Before adding, scan existing entries — merge with similar entries, resolve conflicts. Do not add if it only applies to one specific implementation.
 4. Check for graduation — should any improvement entries be promoted to rules in `knowledge.md`?
 5. For postmortem-worthy incidents, follow the Postmortem Workflow above.
 6. Verify existing `file:line` references are still accurate if those files were modified.
+7. **Post-update check:** Re-read every file you modified. Remove entries that are too specific, redundant, or no longer accurate. The file should be shorter or the same length — not longer — unless genuinely new constraints were discovered.

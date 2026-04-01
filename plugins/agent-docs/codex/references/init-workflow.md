@@ -33,6 +33,8 @@ mkdir -p <chosen-path>
 
 Compact rules and constraints. This file is always loaded into agent context, so keep it concise. No code blocks. Put implementation examples in `patterns.md`.
 
+> Rules must be generic and principle-based — not tied to specific module names, function signatures, or file paths. Those are derivable from the code. Before adding, check for similar or conflicting entries and merge/resolve rather than accumulate.
+
 <!-- Entry format:
 
 ### [Title]

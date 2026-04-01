@@ -13,12 +13,14 @@ When new knowledge is gained during development, update the appropriate knowledg
 
 ## Rules
 
-1. Good code over documentation — ask if a pattern can be expressed as well-written code (shared component, named function, clear API) before writing a doc entry. Document only constraints, non-obvious decisions, and context that cannot live in the code. Bug fixes already in the code do not need a knowledge entry.
-2. No duplication across files
-3. No code blocks in `knowledge.md`
-4. Prefer pointers to copies
-5. Verify file references after edits
-6. Graduate repeated improvements into `knowledge.md`
+1. Good code over documentation — ask if a pattern can be expressed as well-written code before writing a doc entry. Document only constraints, non-obvious decisions, and context that cannot live in the code.
+2. Generic rules only — rules must be principle-based, not tied to specific module names, function signatures, or file paths. If a rule only applies to one call site, it does not belong in `knowledge.md`.
+3. Merge or resolve before adding — scan existing entries first. Merge similar entries; resolve conflicts. Prefer fewer, stronger rules over many narrow ones.
+4. No duplication across files
+5. No code blocks in `knowledge.md`
+6. Prefer pointers to copies
+7. Verify file references after edits
+8. Graduate repeated improvements into `knowledge.md`
 
 ## Categorize
 
@@ -41,6 +43,7 @@ Use [postmortem-template.md](postmortem-template.md) for the full writeup format
 
 1. Review the session and identify new knowledge
 2. Put each item in the right file
-3. Update instead of duplicating similar existing entries
+3. Before adding, scan for similar or conflicting entries — merge or resolve, don't accumulate
 4. Promote repeated improvements to standing rules when appropriate
 5. Verify any touched file references remain accurate
+6. Post-update check: re-read modified files and remove entries that are too specific, redundant, or stale. The file should not grow unless genuinely new constraints were found.
