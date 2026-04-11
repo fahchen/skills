@@ -68,7 +68,7 @@ The user modified `spec/domains/orders/features/cancellation.feature` to allow c
 >
 > Proposed resolution:
 > - Update glossary definition to: *"Order handed to carrier. Cancellation possible within the grace window; irreversible after."*
-> - Cascade check: `domains/shipping/features/dispatch.feature` uses "Dispatched" but doesn't claim irreversibility in its scenarios — no cascade needed.
+> - Cascade check: `spec/domains/shipping/features/dispatch.feature` uses "Dispatched" but doesn't claim irreversibility in its scenarios — no cascade needed.
 >
 > Confirm both resolutions?
 
@@ -115,25 +115,25 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 - **Detail**: Cancellation feature has a scenario for single-item cancellation from a multi-item order, but BDR-0002 explicitly deferred partial cancellation.
 - **Severity**: breaking
 
-### C4: Gift card payments listed as deferred but feature exists
-- **Points**: P12 vs P13
-- **Nature**: stale backlog
-- **Detail**: Backlog lists "Gift card payments" as a deferred feature, but `domains/checkout/features/gift-card-payments.feature` now exists.
-- **Severity**: cosmetic
-
 ### C3: Churned subscriber point forfeiture vs retention access
 - **Points**: P9 vs P7
 - **Nature**: contradictory rules (cross-domain)
 - **Detail**: Not directly contradictory but worth flagging: churned subscribers lose points immediately (P9) yet retain account access for 90 days (P7). A churned subscriber viewing their account would see 0 points despite being within retention window. This may be intentional but the intent is not documented.
 - **Severity**: misleading
+
+### C4: Gift card payments listed as deferred but feature exists
+- **Points**: P12 vs P13
+- **Nature**: stale backlog
+- **Detail**: Backlog lists "Gift card payments" as a deferred feature, but `domains/checkout/features/gift-card-payments.feature` now exists.
+- **Severity**: cosmetic
 ```
 
 ### Conflict Presentation to User
 
 > **C1 (misleading): Refund timeline — 5 days vs 3 days**
 >
-> - `domains/orders/features/cancellation.feature:28` says refunds take 5 business days
-> - `domains/shipping/features/returns.feature:15` says refunds take 3 business days
+> - `spec/domains/orders/features/cancellation.feature:28` says refunds take 5 business days
+> - `spec/domains/shipping/features/returns.feature:15` says refunds take 3 business days
 >
 > Options:
 > 1. **Standardize to 3 days** — Update cancellation refund timeline
@@ -142,8 +142,8 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 >
 > **C2 (breaking): Partial cancellation scenario exists despite deferral**
 >
-> - `domains/orders/features/cancellation.feature:35` has a scenario for cancelling one item from a multi-item order
-> - `decisions/BDR-0002` explicitly deferred partial cancellation
+> - `spec/domains/orders/features/cancellation.feature:35` has a scenario for cancelling one item from a multi-item order
+> - `spec/decisions/BDR-0002` explicitly deferred partial cancellation
 >
 > Options:
 > 1. **Remove the scenario** — Align with BDR-0002's deferral decision
@@ -152,8 +152,8 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 >
 > **C3 (misleading): Churned subscriber — points gone but access remains**
 >
-> - `domains/orders/features/loyalty.feature:20` forfeits points immediately on churn
-> - `domains/authentication/features/login.feature:18` retains read-only access for 90 days
+> - `spec/domains/orders/features/loyalty.feature:20` forfeits points immediately on churn
+> - `spec/domains/authentication/features/login.feature:18` retains read-only access for 90 days
 >
 > Not contradictory, but the interaction may surprise users. Options:
 > 1. **Document as intentional** — Add a comment or BDR noting the deliberate asymmetry
@@ -162,8 +162,8 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 >
 > **C4 (cosmetic): Gift card payments — backlog says deferred but feature exists**
 >
-> - `backlog.md:5` lists "Gift card payments" as a deferred feature
-> - `domains/checkout/features/gift-card-payments.feature` now implements it
+> - `spec/backlog.md:5` lists "Gift card payments" as a deferred feature
+> - `spec/domains/checkout/features/gift-card-payments.feature` now implements it
 >
 > Options:
 > 1. **Remove from backlog** — The feature has been implemented; the deferral is stale
