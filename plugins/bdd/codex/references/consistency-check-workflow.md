@@ -1,6 +1,6 @@
 # BDD Consistency Check
 
-Detect and resolve contradictions across BDD spec artifacts: `.feature` files, BDR files, and glossary entries.
+Detect and resolve contradictions across BDD spec artifacts: `.feature` files, BDR files, glossary, and backlog.
 
 This workflow supports two modes:
 
@@ -24,7 +24,7 @@ Create a temporary findings file at `spec/.consistency-check.md` and update it i
 ## Conflicts Detected
 ### C1: [short title]
 - **Points**: P1 vs P5
-- **Nature**: contradictory rules | overlapping scenarios | decision reversal | glossary inconsistency | stale reference
+- **Nature**: contradictory rules | overlapping scenarios | decision reversal | glossary inconsistency | stale reference | stale backlog | monolithic feature
 - **Detail**: ...
 - **Severity**: breaking | misleading | cosmetic
 
@@ -41,8 +41,9 @@ Create a temporary findings file at `spec/.consistency-check.md` and update it i
 Use user-specified files if provided. Otherwise use `git diff --name-only` and filter to `spec/` paths:
 
 - `.feature`
-- BDR `.md` files in `decisions/`
+- BDR `.md` files in `spec/decisions/` and `spec/<domain>/decisions/`
 - `glossary.md`
+- `backlog.md`
 
 If no spec files changed, tell the user and stop.
 
@@ -54,16 +55,19 @@ Record business-relevant statements as points:
 - scenario outcomes
 - BDR decisions and status
 - glossary term definitions
+- backlog deferred features and open decisions
 
 ### 3. Scan Existing Specs for Conflicts
 
-Compare changed points against the rest of the spec. Look for:
+Compare changed points against the rest of the spec (including `backlog.md` and `glossary.md`). BDR files may live in `spec/decisions/` and/or `spec/<domain>/decisions/` — scan both paths. Look for:
 
 - contradictory rules
 - overlapping scenarios with different outcomes
 - decision reversals
 - glossary inconsistency
 - stale references
+- stale backlog entries (deferred features that have since been implemented)
+- monolithic features (rules serving different business concerns in one file)
 
 Record conflicts as soon as they are found.
 
@@ -95,11 +99,12 @@ Remove `spec/.consistency-check.md` and summarize changes.
 
 ### 1. Scan All Spec Files
 
-Process in a stable order:
+BDR files live in `spec/decisions/` (global) and/or `spec/<domain>/decisions/` (domain-scoped) — scan both paths. Process in a stable order:
 
 1. `glossary.md`
-2. `.feature` files grouped by domain
-3. BDRs grouped by domain
+2. `backlog.md`
+3. `.feature` files grouped by domain
+4. BDRs from `spec/decisions/` and `spec/*/decisions/`, grouped by domain
 
 ### 2. Extract and Compare Points
 

@@ -9,26 +9,30 @@ Organize BDD artifacts within a top-level `spec/` directory, or follow the proje
 ```text
 spec/
 ├── glossary.md
+├── backlog.md
 ├── .discovery/
 │   ├── order-cancellation.md
 │   └── loyalty-rewards.md
+├── decisions/
+│   ├── BDR-0001-no-cancellation-after-dispatch.md
+│   └── BDR-0002-guest-checkout-rejected.md
 ├── orders/
-│   ├── features/
-│   │   └── cancellation.feature
-│   └── decisions/
-│       ├── BDR-0001-no-cancellation-after-dispatch.md
-│       └── BDR-0002-partial-cancellation-not-supported.md
+│   └── features/
+│       ├── cancellation.feature
+│       └── refund.feature
 └── checkout/
-    ├── features/
-    └── decisions/
+    └── features/
+        └── cart.feature
 ```
 
 Conventions:
 
-- Group by domain
-- One feature per file
+- Group by domain — each domain gets a directory under `spec/` with features under `spec/<domain>/features/`
+- One focused capability per file — split by business concern to avoid monolithic files
+- Decisions placement — `spec/decisions/` (global, recommended default) or `spec/<domain>/decisions/` (domain-scoped). Choose one per project.
 - Progress files live in `spec/.discovery/`
-- Glossary lives at `spec/glossary.md`
+- Backlog at `spec/backlog.md` — deferred features and open decisions that don't warrant a full BDR
+- Glossary at `spec/glossary.md`
 
 ## Progress File
 
@@ -58,6 +62,7 @@ Create a progress file at `spec/.discovery/<domain>-<feature>.md`. Update it inc
 - **[Decision title]**: Chose A over B because ...
 
 ## Out-of-Scope Behaviours
+<!-- implementation details (do not pass Implementation Swap Test) or adjacent features -->
 - ...
 
 ## Rejected Behaviours
@@ -152,13 +157,17 @@ Transform discovered content into Gherkin:
 
 Exclude implementation-detail scenarios.
 
+Evaluate whether the output should be split into multiple `.feature` files. Split by business concern when rules serve different actors or business concerns. Present the split recommendation to the user before generating.
+
 Place generated files in `spec/<domain>/features/`.
 
 Overwrite existing `.feature` files for the same capability; they represent the latest version.
 
 ### Generate BDRs
 
-Create BDRs for non-trivial decisions. Skip BDR creation if no non-trivial decisions were made.
+Create BDRs for non-trivial decisions. Place in `spec/decisions/` (global) or `spec/<domain>/decisions/` (domain-scoped), following the project's convention. Skip BDR creation if no non-trivial decisions were made.
+
+Determine the next BDR number by scanning `spec/decisions/` and all `spec/*/decisions/` for the highest existing `BDR-NNNN` and incrementing.
 
 When updating an existing BDR:
 

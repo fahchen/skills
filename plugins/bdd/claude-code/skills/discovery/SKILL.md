@@ -15,35 +15,70 @@ Organize BDD artifacts within a top-level `spec/` directory (or the project's es
 ```
 spec/
 ├── glossary.md                            # shared domain terminology
+├── backlog.md                             # deferred features and open decisions
 ├── .discovery/
 │   ├── order-cancellation.md              # temporary — removed after consolidation
 │   └── loyalty-rewards.md                 # multiple discoveries can coexist
-├── orders/
-│   ├── features/
-│   │   └── cancellation.feature
-│   └── decisions/
-│       ├── BDR-0001-no-cancellation-after-dispatch.md
-│       └── BDR-0002-partial-cancellation-not-supported.md
-├── authentication/
-│   ├── features/
-│   │   └── login.feature
-│   └── decisions/
-│       └── BDR-0003-require-mfa-for-password-reset.md
-└── checkout/
-    ├── features/
-    │   └── cart.feature
-    └── decisions/
-        └── BDR-0004-no-guest-checkout.md
+├── decisions/                             # global decisions (cross-cutting concerns)
+│   ├── BDR-0001-no-cancellation-after-dispatch.md
+│   └── BDR-0002-guest-checkout-rejected.md
+├── orders/                                # domain: order management
+│   └── features/
+│       ├── cancellation.feature           # one focused capability per file
+│       ├── refund.feature
+│       └── order-status.feature
+├── authentication/                        # domain: identity & access
+│   └── features/
+│       ├── login.feature
+│       └── password-reset.feature
+└── checkout/                              # domain: purchase flow
+    └── features/
+        └── cart.feature
 ```
 
 Conventions:
 
-- **Group by domain** — Each domain gets a top-level directory under `spec/` (e.g., `spec/orders/`, `spec/checkout/`). Features and decisions for that domain live together: `spec/<domain>/features/` and `spec/<domain>/decisions/`.
-- **One feature per file** — name the file after the capability (`cancellation.feature`, not `test-1.feature`). The domain directory provides context, so don't repeat it in the filename.
+- **Group by domain** — Each domain (major product area) gets a top-level directory under `spec/` (e.g., `spec/orders/`, `spec/checkout/`). A domain groups related capabilities that share a common actor or concern. Features for that domain live under `spec/<domain>/features/`.
+- **One focused capability per file** — name the file after the capability (`cancellation.feature`, not `test-1.feature`). The domain directory provides context, so don't repeat it in the filename. Split by business concern to avoid monolithic files (see *Avoiding Monolithic Features* below).
+- **Decisions placement** — Place BDRs in `spec/decisions/` (global, flat) for cross-cutting or project-wide decisions. Alternatively, place them under `spec/<domain>/decisions/` when they are scoped to a single domain. Choose one convention per project and stay consistent. Global placement is simpler and recommended as a default.
 - **Progress files live in `spec/.discovery/`** — named `<domain>-<feature>.md` (e.g., `order-cancellation.md`). Include the domain in the filename since `.discovery/` is flat. Hidden directory to avoid clutter. Multiple discoveries can coexist.
+- **Backlog at `spec/backlog.md`** — deferred features and open decisions that don't warrant a full BDR. Not a replacement for BDRs — use BDRs when the *reasoning* behind a deferral matters. The backlog uses a grouped list format:
+
+  ```markdown
+  ## Deferred Features
+  - **[Feature name]** — [why deferred] (discovered: YYYY-MM-DD)
+
+  ## Open Decisions
+  - **[Decision]** — [what's unresolved and what's blocking it]
+  ```
 - **Glossary at `spec/glossary.md`** — shared domain terminology (ubiquitous language) maintained across all discoveries. Table format with Term and Definition columns.
 
 Adapt to an existing project layout when one is already established. These conventions apply when starting fresh.
+
+### Avoiding Monolithic Features
+
+A single `.feature` file should cover one focused business concern. When rules within a file serve different business concerns, that is the signal to split — not line count or rule count. Split by **business concern**, not arbitrarily by size:
+
+| Business concern | Example files |
+|---|---|
+| What triggers notification | `notification-triggers.feature` |
+| Who receives and what content | `notification-routing.feature` |
+| Delivery obligations and urgency | `notification-delivery.feature` |
+| Preferences and opt-out | `notification-preferences.feature` |
+
+**When to split:**
+
+- Rules within the file serve different actors or business concerns
+- The file mixes user-facing behaviour with admin configuration
+- A new rule group emerges during discovery that is logically independent
+
+**When NOT to split:**
+
+- All rules are tightly coupled around a single business concern
+- Splitting would scatter a single coherent narrative across files
+- Rules share Background steps that would need duplication
+
+During consolidation, actively evaluate whether the generated output should be one file or several. Present the split recommendation to the user with reasoning.
 
 ## Progress File
 
@@ -79,8 +114,8 @@ Create a progress file at the start of discovery. Place it in `spec/.discovery/<
 - **[Decision title]**: Deferred X because ...
 
 ## Out-of-Scope Behaviours
-<!-- Valid behaviours that describe implementation details, not business rules -->
-- [Behaviour]: noted because [why it's implementation, not a business rule]
+<!-- Behaviours excluded from this feature: implementation details (do not pass Implementation Swap Test) or adjacent features -->
+- [Behaviour]: noted because [implementation detail | belongs to <other feature>]
 
 ## Rejected Behaviours
 <!-- Behaviours categorically excluded from this feature — not deferred for later, and not just the "other option" in a decision. Deferrals belong in Decisions Made. -->
@@ -212,7 +247,8 @@ Transform discovered content into well-formed Gherkin:
 - Unresolved open questions become `# TODO:` comments or `@wip` tags. `@wip` scenarios may use placeholder Then steps when the actual outcome is unresolved — the placeholder should be accompanied by a `# TODO` comment referencing the open question it depends on.
 - Exclude scenarios about implementation details (see *Business Rules vs Implementation Details*)
 - When a rule's classification as a business rule was contested during discovery, add a brief Gherkin comment above the `Rule:` block noting why the Implementation Swap Test was satisfied
-- Group related scenarios under the same Rule block; split into separate .feature files only when features are genuinely distinct
+- Group related scenarios under the same Rule block
+- Evaluate whether the output should be split into multiple `.feature` files (see *Avoiding Monolithic Features*). When splitting, present the proposed file breakdown to the user before generating. Each file should have its own Feature narrative and focused set of rules.
 
 Place generated files in `spec/<domain>/features/` (or the established convention).
 
@@ -224,7 +260,7 @@ Create Behaviour Decision Records only for significant decisions — especially 
 
 - Use the standard format for decisions with meaningful context and alternatives
 - Use the lightweight format for minor decisions where a one-liner suffices
-- Place BDR files in `spec/<domain>/decisions/` (e.g., `spec/orders/decisions/`) or the established convention
+- Place BDR files in `spec/decisions/` (global) or `spec/<domain>/decisions/` (domain-scoped), following the project's established convention
 
 Skip BDR generation entirely if no non-trivial decisions were made during discovery.
 
@@ -418,7 +454,7 @@ Do not create BDRs for obvious or uncontested decisions.
 
 ### BDR Numbering
 
-Determine the next BDR number by scanning all `spec/*/decisions/` directories for the highest existing `BDR-NNNN` and incrementing. BDR numbers are global across all domains. If no BDRs exist yet, start at `BDR-0001`.
+Determine the next BDR number by scanning `spec/decisions/` and all `spec/*/decisions/` directories for the highest existing `BDR-NNNN` and incrementing. BDR numbers are global across all domains. If no BDRs exist yet, start at `BDR-0001`.
 
 ## Quality Criteria
 
@@ -440,6 +476,7 @@ Apply this checklist before consolidation:
 - [ ] Superseded BDRs have status updated; conflicting BDR decisions were not overwritten (supersession used instead of body edits)
 - [ ] Glossary updated with new/changed terms (confirmed with user)
 - [ ] Terms in .feature files consistent with glossary definitions
+- [ ] Feature files are focused — no monolithic files (split by business concern if needed)
 - [ ] Progress file will be removed after consolidation
 
 ## Reference
@@ -452,7 +489,8 @@ Ref: [Cucumber Anti-Patterns](http://www.thinkcode.se/blog/2016/06/22/cucumber-a
 
 ### Abstraction & Language
 
-- **Layer mixing** -- Two forms: (1) *Imperative phrasing* -- "clicks Submit" instead of "submits the form"; (2) *Misplaced scenarios* -- entire scenario about implementation details (UI mechanics, API specifics, infrastructure) that belongs in another test layer. Apply the Implementation Swap Test.
+- **Imperative phrasing** -- "clicks Submit" instead of "submits the form". Use declarative language that describes intent, not mechanism.
+- **Misplaced scenarios** -- Entire scenario about implementation details (UI mechanics, API specifics, infrastructure) that belongs in another test layer. Apply the Implementation Swap Test.
 - **Incidental details** -- Irrelevant setup (passwords, navigation, timestamps) that obscures the business rule. Keep only details essential to understanding the rule; push the rest to Background or remove entirely.
 - **Generic "I"** -- Using "I" or "the user" instead of a named role. Use the actor from discovery (e.g., "the recruiter", "a hiring manager").
 
@@ -468,6 +506,7 @@ Ref: [Cucumber Anti-Patterns](http://www.thinkcode.se/blog/2016/06/22/cucumber-a
 ### Process
 
 - **Premature consolidation** -- Jumping to .feature files before rules stabilize. Stay in discovery until the Quality Criteria checklist is satisfied.
+- **Monolithic features** -- Dumping all rules into a single `.feature` file. Split by business concern when rules serve different actors or business concerns. See *Avoiding Monolithic Features*.
 - **Missing rejections** -- Forgetting to capture "why not" for rejected options. The reasoning behind exclusions is often more valuable than what was included.
 - **Orphaned progress file** -- Leaving progress files in `spec/.discovery/` after consolidation. Always clean up.
 - **Over-specifying** -- Turning every edge case into a scenario. Not every edge case warrants a scenario in the first pass -- note it as an open question or defer it.
