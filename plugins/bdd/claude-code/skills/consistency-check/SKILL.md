@@ -39,7 +39,7 @@ Create a temporary findings file at `spec/.consistency-check.md` to record obser
 
 ### C1: [short title]
 - **Points**: P1 vs P5
-- **Nature**: [contradictory rules | overlapping scenarios | decision reversal | glossary inconsistency | stale reference]
+- **Nature**: [contradictory rules | overlapping scenarios | decision reversal | glossary inconsistency | stale reference | stale backlog | monolithic feature]
 - **Detail**: [explain the contradiction]
 - **Severity**: [breaking | misleading | cosmetic]
 - **Source priority** (incremental only): [changed | existing]
@@ -59,7 +59,7 @@ Determine the scope of changes:
 
 - If the user specifies files, use those
 - Otherwise, use `git diff --name-only` (staged + unstaged) filtered to `spec/` paths
-- Include only `.feature`, BDR (`.md` in `decisions/`), and `glossary.md` files
+- Include only `.feature`, BDR (`.md` in `decisions/`), `glossary.md`, and `backlog.md` files
 
 If no spec files have changed, inform the user and exit.
 
@@ -70,18 +70,21 @@ Read each changed file. For every business-relevant statement, record a point in
 - **Feature files**: Each `Rule:` statement, each `Scenario:` title + its Then outcomes, Feature narrative
 - **BDRs**: The decision, status, supersession links, scope (Feature/Rule references)
 - **Glossary**: Each term and its definition
+- **Backlog**: Each deferred feature entry and open decision entry
 
 Label each point with a `[P<n>]` identifier, the source file and line, and a concise statement.
 
 ### 3. Scan Existing Specs for Conflicts
 
-Read all *other* spec files (not in the change set). For each, extract points using the same method. As each new point is recorded, compare it against all previously recorded points. Look for:
+Read all *other* spec files (not in the change set), including `backlog.md` and `glossary.md`. BDR files may live in `spec/decisions/` and/or `spec/<domain>/decisions/` — scan both paths. For each, extract points using the same method. As each new point is recorded, compare it against all previously recorded points. Look for:
 
 - **Contradictory rules** — Two rules that cannot both be true (e.g., "orders can be cancelled anytime" vs "orders cannot be cancelled after dispatch")
 - **Overlapping scenarios** — Two scenarios describing the same trigger with different outcomes
 - **Decision reversals** — A changed decision that contradicts an existing accepted BDR (without supersession)
 - **Glossary inconsistency** — A term used in a feature file differently than its glossary definition, or a changed glossary definition that invalidates existing scenario wording
 - **Stale references** — A BDR referencing a rule or feature that no longer exists or has changed meaning
+- **Stale backlog entries** — A deferred feature in `spec/backlog.md` that has since been implemented (a matching `.feature` file or BDR now exists), or an open decision that has been resolved by a BDR
+- **Monolithic features** — A `.feature` file whose rules serve different business concerns — different actors or domains are signals, not triggers on their own
 
 When a conflict is found, record it immediately in the findings ledger under **Conflicts Detected**. Do not wait until all files are scanned.
 
@@ -114,11 +117,12 @@ Remove `spec/.consistency-check.md`. Summarize what was changed.
 
 ### 1. Scan All Spec Files
 
-Read every `.feature` file, BDR, and `glossary.md` under `spec/`. Process them in a consistent order:
+Read every `.feature` file, BDR, `glossary.md`, and `backlog.md` under `spec/`. BDR files live in `spec/decisions/` (global) and/or `spec/<domain>/decisions/` (domain-scoped) — scan both paths. Process them in a consistent order:
 
 1. `glossary.md` first (establishes term definitions)
-2. `.feature` files grouped by domain
-3. BDRs grouped by domain
+2. `backlog.md` (establishes deferred items)
+3. `.feature` files grouped by domain
+4. BDRs from `spec/decisions/` and `spec/*/decisions/`, grouped by domain
 
 ### 2. Extract and Compare Points
 
@@ -130,6 +134,8 @@ For each pair of points being compared, check:
 - Do they describe the same scenario with different outcomes?
 - Does one reference something that the other has changed or removed?
 - Do they use the same term with different meanings?
+- Does a backlog entry refer to a feature or decision that now exists?
+- Does a feature file mix rules that serve different business concerns?
 
 ### 3. Multi-Pass Scanning
 
@@ -194,6 +200,7 @@ Only flag a conflict when two points make incompatible claims about the same sub
 | `Background:` steps | Assumed preconditions for all scenarios in scope |
 | `@wip` scenarios | Flag as provisional — lower confidence in conflict detection |
 | Tags | Categorization claims (e.g., `@orders` means this belongs to orders domain) |
+| All `Rule:` blocks as a group | Whether the rules serve disparate business concerns — different actors or unrelated capabilities are signals, not triggers on their own (monolithic feature signal) |
 
 ### From BDRs
 
@@ -210,6 +217,13 @@ Only flag a conflict when two points make incompatible claims about the same sub
 | Artifact | Extract as point |
 |----------|-----------------|
 | Each term + definition | The authoritative meaning of this domain concept |
+
+### From Backlog
+
+| Artifact | Extract as point |
+|----------|-----------------|
+| Deferred feature entry | A capability explicitly not yet implemented |
+| Open decision entry | A decision explicitly not yet resolved |
 
 ## Anti-Patterns
 
