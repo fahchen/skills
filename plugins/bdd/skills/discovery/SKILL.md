@@ -54,7 +54,7 @@ Conventions:
   ```
 - **Glossary at `spec/glossary.md`** — shared domain terminology (ubiquitous language) maintained across all discoveries. Table format with Term and Definition columns.
 
-**Path format** — In narrative text and file-system operations, use full paths from `spec/` (e.g., `spec/domains/orders/features/cancellation.feature`). In BDR frontmatter fields (`**Feature**:`) and findings ledger entries, use paths relative to `spec/` (e.g., `domains/orders/features/cancellation.feature`).
+**Path format** — Always use full paths from `spec/` (e.g., `spec/domains/orders/features/cancellation.feature`) in all contexts: narrative text, BDR frontmatter fields, and findings ledger entries.
 
 Adapt to an existing project layout when one is already established. These conventions apply when starting fresh.
 
@@ -401,7 +401,7 @@ summary: [One-line summary capturing the essence of the decision]
 # superseded-by: BDR-YYYY  # added when this BDR is superseded
 ---
 
-**Feature**: [path relative to spec/ directory, e.g., domains/orders/features/cancellation.feature]
+**Feature**: [e.g., spec/domains/orders/features/cancellation.feature]
 **Rule**: [which Rule: this relates to]
 **Supersedes**: BDR-XXXX  <!-- optional, only when overriding a previous decision -->
 
@@ -435,7 +435,7 @@ summary: Rejected guest checkout; authentication required for payment security
 
 ## Scope
 
-**Feature**: domains/checkout/features/cart.feature  <!-- path relative to spec/ directory -->
+**Feature**: spec/domains/checkout/features/cart.feature
 **Rule**: Customers must be authenticated to checkout
 **Supersedes**: BDR-XXXX  <!-- optional -->
 

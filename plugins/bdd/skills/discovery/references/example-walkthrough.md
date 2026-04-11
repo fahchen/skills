@@ -155,7 +155,7 @@ date: 2026-02-07
 summary: Cut off cancellation at dispatch rather than offering a post-dispatch grace window
 ---
 
-**Feature**: domains/orders/features/cancellation.feature
+**Feature**: spec/domains/orders/features/cancellation.feature
 **Rule**: Orders cannot be cancelled after dispatch
 
 ## Context
@@ -218,7 +218,7 @@ summary: Deferred partial item cancellation; full-order only for initial release
 
 ## Scope
 
-**Feature**: domains/orders/features/cancellation.feature
+**Feature**: spec/domains/orders/features/cancellation.feature
 **Rule**: Orders can be cancelled before dispatch
 
 ## Reason

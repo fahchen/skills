@@ -17,12 +17,12 @@ The user modified `spec/domains/orders/features/cancellation.feature` to allow c
 
 ## Points Observed
 
-- [P1] domains/orders/features/cancellation.feature:14 — Orders can be cancelled up to 1 hour after dispatch (CHANGED)
-- [P2] domains/orders/features/cancellation.feature:22 — Cancellation after 1-hour window is rejected (CHANGED)
-- [P3] decisions/BDR-0001.md — No cancellation after dispatch (accepted)
-- [P4] domains/shipping/features/dispatch.feature:10 — Dispatch triggers carrier pickup immediately
-- [P5] domains/orders/features/cancellation.feature:30 — Refund is issued on cancellation (CHANGED — now includes post-dispatch partial refund)
-- [P6] glossary.md — "Dispatched" = order handed to carrier, irreversible
+- [P1] spec/domains/orders/features/cancellation.feature:14 — Orders can be cancelled up to 1 hour after dispatch (CHANGED)
+- [P2] spec/domains/orders/features/cancellation.feature:22 — Cancellation after 1-hour window is rejected (CHANGED)
+- [P3] spec/decisions/BDR-0001.md — No cancellation after dispatch (accepted)
+- [P4] spec/domains/shipping/features/dispatch.feature:10 — Dispatch triggers carrier pickup immediately
+- [P5] spec/domains/orders/features/cancellation.feature:30 — Refund is issued on cancellation (CHANGED — now includes post-dispatch partial refund)
+- [P6] spec/glossary.md — "Dispatched" = order handed to carrier, irreversible
 
 ## Conflicts Detected
 
@@ -48,7 +48,7 @@ The user modified `spec/domains/orders/features/cancellation.feature` to allow c
 
 ### C2: "Irreversible" dispatch vs post-dispatch cancellation
 - **Decision**: Update glossary definition to reflect cancellation window
-- **Action**: glossary.md "Dispatched" definition updated to: "Order handed to carrier. Cancellation possible within the grace window; irreversible after."
+- **Action**: spec/glossary.md "Dispatched" definition updated to: "Order handed to carrier. Cancellation possible within the grace window; irreversible after."
 ```
 
 ### Conflict Presentation to User
@@ -87,19 +87,19 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 
 ## Points Observed
 
-- [P1] glossary.md — "Member" = customer with active subscription
-- [P2] glossary.md — "Churned subscriber" = customer who cancelled within last 30 days
-- [P3] domains/orders/features/cancellation.feature:14 — Orders can be cancelled before dispatch
-- [P4] domains/orders/features/cancellation.feature:28 — Refund issued within 5 business days
-- [P5] domains/shipping/features/returns.feature:15 — Returns accepted within 30 days; refund within 3 business days
-- [P6] domains/authentication/features/login.feature:10 — Members can access order history
-- [P7] domains/authentication/features/login.feature:18 — Churned subscribers retain read-only access for 90 days
-- [P8] domains/orders/features/loyalty.feature:12 — Members earn 1 point per dollar spent
-- [P9] domains/orders/features/loyalty.feature:20 — Churned subscribers lose all points immediately
-- [P10] decisions/BDR-0002.md — Partial cancellation not supported (deferred)
-- [P11] domains/orders/features/cancellation.feature:35 — Scenario: "Customer cancels one item from multi-item order"
-- [P12] backlog.md:5 — Deferred: "Gift card payments" (discovered: 2026-02-10)
-- [P13] domains/checkout/features/gift-card-payments.feature:1 — Feature: Gift Card Payments
+- [P1] spec/glossary.md — "Member" = customer with active subscription
+- [P2] spec/glossary.md — "Churned subscriber" = customer who cancelled within last 30 days
+- [P3] spec/domains/orders/features/cancellation.feature:14 — Orders can be cancelled before dispatch
+- [P4] spec/domains/orders/features/cancellation.feature:28 — Refund issued within 5 business days
+- [P5] spec/domains/shipping/features/returns.feature:15 — Returns accepted within 30 days; refund within 3 business days
+- [P6] spec/domains/authentication/features/login.feature:10 — Members can access order history
+- [P7] spec/domains/authentication/features/login.feature:18 — Churned subscribers retain read-only access for 90 days
+- [P8] spec/domains/orders/features/loyalty.feature:12 — Members earn 1 point per dollar spent
+- [P9] spec/domains/orders/features/loyalty.feature:20 — Churned subscribers lose all points immediately
+- [P10] spec/decisions/BDR-0002.md — Partial cancellation not supported (deferred)
+- [P11] spec/domains/orders/features/cancellation.feature:35 — Scenario: "Customer cancels one item from multi-item order"
+- [P12] spec/backlog.md:5 — Deferred: "Gift card payments" (discovered: 2026-02-10)
+- [P13] spec/domains/checkout/features/gift-card-payments.feature:1 — Feature: Gift Card Payments
 
 ## Conflicts Detected
 
@@ -124,7 +124,7 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 ### C4: Gift card payments listed as deferred but feature exists
 - **Points**: P12 vs P13
 - **Nature**: stale backlog
-- **Detail**: Backlog lists "Gift card payments" as a deferred feature, but `domains/checkout/features/gift-card-payments.feature` now exists.
+- **Detail**: Backlog lists "Gift card payments" as a deferred feature, but `spec/domains/checkout/features/gift-card-payments.feature` now exists.
 - **Severity**: cosmetic
 ```
 
