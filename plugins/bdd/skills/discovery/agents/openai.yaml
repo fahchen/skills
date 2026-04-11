@@ -1,0 +1,8 @@
+interface:
+  display_name: "BDD Discovery"
+  short_description: "Interactively explore features, surface rules and examples, consolidate into .feature and BDR files"
+  brand_color: "#15803D"
+  default_prompt: "Use $discovery to run BDD discovery on a feature."
+
+policy:
+  allow_implicit_invocation: true

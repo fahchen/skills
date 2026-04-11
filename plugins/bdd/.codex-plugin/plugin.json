@@ -1,0 +1,6 @@
+{
+  "name": "bdd",
+  "description": "Guided BDD discovery and consistency checking — interactively explore features, surface rules and examples, consolidate into .feature and BDR files, and detect contradictions across specs",
+  "version": "1.4.0",
+  "skills": "./skills/"
+}

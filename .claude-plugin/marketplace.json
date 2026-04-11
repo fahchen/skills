@@ -17,7 +17,7 @@
     },
     {
       "name": "bdd",
-      "source": "./plugins/bdd/claude-code",
+      "source": "./plugins/bdd",
       "description": "Guided BDD discovery — interactively explore features, surface rules and examples, and consolidate into .feature and BDR files"
     },
     {

@@ -1,8 +1,0 @@
-interface:
-  display_name: "BDD"
-  short_description: "BDD discovery and spec consistency"
-  brand_color: "#15803D"
-  default_prompt: "Use $bdd to run BDD discovery or check BDD artifacts for contradictions."
-
-policy:
-  allow_implicit_invocation: true
