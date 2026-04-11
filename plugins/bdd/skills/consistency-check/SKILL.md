@@ -27,11 +27,12 @@ Create a temporary findings file at `spec/.consistency-check.md` to record obser
 ## Points Observed
 
 <!-- Each point is a factual statement extracted from a spec artifact. -->
+<!-- All paths use full spec/ prefix (e.g., spec/domains/orders/features/cancellation.feature) -->
 <!-- Format: [ID] source_file:line — statement -->
 
-- [P1] orders/features/cancellation.feature:12 — Orders can only be cancelled before dispatch
-- [P2] shipping/features/dispatch.feature:8 — Dispatch status is set when carrier confirms pickup
-- [P3] orders/decisions/BDR-0001.md — No cancellation after dispatch (accepted)
+- [P1] spec/domains/orders/features/cancellation.feature:12 — Orders can only be cancelled before dispatch
+- [P2] spec/domains/shipping/features/dispatch.feature:8 — Dispatch status is set when carrier confirms pickup
+- [P3] spec/decisions/BDR-0001.md — No cancellation after dispatch (accepted)
 
 ## Conflicts Detected
 
@@ -59,7 +60,7 @@ Determine the scope of changes:
 
 - If the user specifies files, use those
 - Otherwise, use `git diff --name-only` (staged + unstaged) filtered to `spec/` paths
-- Include only `.feature`, BDR (`.md` in `decisions/`), `glossary.md`, and `backlog.md` files
+- Include only `.feature`, BDR (`.md` in `spec/decisions/`), `spec/glossary.md`, and `spec/backlog.md` files
 
 If no spec files have changed, inform the user and exit.
 
@@ -76,7 +77,7 @@ Label each point with a `[P<n>]` identifier, the source file and line, and a con
 
 ### 3. Scan Existing Specs for Conflicts
 
-Read all *other* spec files (not in the change set), including `backlog.md` and `glossary.md`. BDR files may live in `spec/decisions/` and/or `spec/<domain>/decisions/` — scan both paths. For each, extract points using the same method. As each new point is recorded, compare it against all previously recorded points. Look for:
+Read all *other* spec files (not in the change set), including `spec/backlog.md` and `spec/glossary.md`. BDR files may live in `spec/decisions/` and/or `spec/domains/<domain>/decisions/` — scan both paths. For each, extract points using the same method. As each new point is recorded, compare it against all previously recorded points. Look for:
 
 - **Contradictory rules** — Two rules that cannot both be true (e.g., "orders can be cancelled anytime" vs "orders cannot be cancelled after dispatch")
 - **Overlapping scenarios** — Two scenarios describing the same trigger with different outcomes
@@ -104,7 +105,8 @@ Present all conflicts as a batch. Ask the user to confirm, adjust, or reject eac
 For confirmed resolutions:
 
 - Modify the existing spec files to align with the changes
-- If a BDR requires a **conflicting change** (decision reversal or contradictory reasoning), create a new superseding BDR rather than editing the existing body — never overwrite a BDR body when the change introduces a contradiction
+- If a BDR requires a **conflicting change** (decision reversal or contradictory reasoning), create a new superseding BDR rather than editing the existing body — never overwrite a BDR body when the change introduces a contradiction. Do not offer direct editing as an option for already-merged BDRs.
+- **Exception — unmerged BDRs**: if the conflicting BDR was introduced in the same PR or branch (not yet merged), offer the user the option to edit it directly instead of superseding. Only proceed with direct editing if the user confirms — an unmerged BDR has no historical record to preserve, but the decision is still the user's.
 - If a BDR only needs **completion or supplementation** (adding missing detail or expanding context without changing the decision conclusion), the body may be edited directly
 - Update glossary if term definitions changed
 - Record each resolution in the findings ledger
@@ -117,12 +119,12 @@ Remove `spec/.consistency-check.md`. Summarize what was changed.
 
 ### 1. Scan All Spec Files
 
-Read every `.feature` file, BDR, `glossary.md`, and `backlog.md` under `spec/`. BDR files live in `spec/decisions/` (global) and/or `spec/<domain>/decisions/` (domain-scoped) — scan both paths. Process them in a consistent order:
+Read every `.feature` file, BDR, `spec/glossary.md`, and `spec/backlog.md` under `spec/`. BDR files live in `spec/decisions/` (global) and/or `spec/domains/<domain>/decisions/` (domain-scoped) — scan both paths. Process them in a consistent order:
 
-1. `glossary.md` first (establishes term definitions)
-2. `backlog.md` (establishes deferred items)
+1. `spec/glossary.md` first (establishes term definitions)
+2. `spec/backlog.md` (establishes deferred items)
 3. `.feature` files grouped by domain
-4. BDRs from `spec/decisions/` and `spec/*/decisions/`, grouped by domain
+4. BDRs from `spec/decisions/` and `spec/domains/*/decisions/`, grouped by domain
 
 ### 2. Extract and Compare Points
 
