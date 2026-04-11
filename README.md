@@ -16,10 +16,16 @@ Personal Claude Code plugins and matching Codex skills, co-located per plugin un
 
 ### Codex
 
-Copy the skill you want from `plugins/<skill-name>/codex/` into `~/.codex/skills/`, then restart Codex.
+Copy the plugin directory into `~/.codex/plugins/`. Codex discovers skills via `.codex-plugin/plugin.json`.
 
 ```bash
-cp -R plugins/<skill-name>/codex ~/.codex/skills/<skill-name>
+cp -R plugins/<plugin-name> ~/.codex/plugins/<plugin-name>
+```
+
+For aura (Codex-specific skill with inline hooks):
+
+```bash
+cp -R plugins/aura/codex ~/.codex/skills/aura
 ```
 
 ## Available Plugins
@@ -37,56 +43,51 @@ Real-time HUD integration for Claude Code and Codex sessions.
 BDD discovery and consistency-checking workflows for specification work.
 
 - Claude Code: `/plugin install bdd@fahchen-skills`
-- Codex: `cp -R plugins/bdd/codex ~/.codex/skills/bdd`
+- Codex: `cp -R plugins/bdd ~/.codex/plugins/bdd`
 
 ### agent-docs
 
 Tiered project knowledge base bootstrap and maintenance for agent-driven projects.
 
 - Claude Code: `/plugin install agent-docs@fahchen-skills`
-- Codex: `cp -R plugins/agent-docs/codex ~/.codex/skills/agent-docs`
+- Codex: `cp -R plugins/agent-docs ~/.codex/plugins/agent-docs`
 
 ### handoff
 
 Concise transfer notes for ongoing work, with explicit human decisions and one clear next step.
 
 - Claude Code: `/plugin install handoff@fahchen-skills`
-- Codex: `cp -R plugins/handoff/codex ~/.codex/skills/handoff`
+- Codex: `cp -R plugins/handoff ~/.codex/plugins/handoff`
 
 ### workflow
 
 Engineering workflow guidance for planning, implementation, and code review.
 
 - Claude Code: `/plugin install workflow@fahchen-skills`
-- Codex: `cp -R plugins/workflow/codex ~/.codex/skills/workflow`
+- Codex: `cp -R plugins/workflow ~/.codex/plugins/workflow`
 
 ## Releasing a New Version
 
-When updating a plugin, bump the version in **all three places** (keep them in sync):
+When updating a plugin, bump the version in both manifests:
 
-1. `.claude-plugin/marketplace.json` — the `version` field for the plugin entry
-2. `plugins/<name>/claude-code/.claude-plugin/plugin.json` — the Claude Code plugin version
-3. `plugins/<name>/codex/SKILL.md` — the `version:` frontmatter field
+- `plugins/<name>/.claude-plugin/plugin.json`
+- `plugins/<name>/.codex-plugin/plugin.json`
 
 Use semantic versioning: patch for fixes/copy, minor for new features/rules, major for breaking API changes.
 
 ## Structure
 
 ```text
-skills/
-├── .claude-plugin/
-│   └── marketplace.json
-└── plugins/
-    └── <plugin>/
-        ├── claude-code/         # Claude Code plugin
-        │   ├── .claude-plugin/
-        │   │   └── plugin.json
-        │   ├── commands/
-        │   ├── hooks/
-        │   ├── references/
-        │   └── skills/
-        └── codex/               # Codex skill
-            ├── agents/
-            ├── references/
-            └── SKILL.md
+plugins/<plugin>/
+├── .claude-plugin/plugin.json    # Claude Code manifest
+├── .codex-plugin/plugin.json     # Codex manifest (skills: ./skills/)
+├── hooks/                        # Claude Code hooks (optional, e.g., aura)
+├── skills/
+│   └── <skill>/
+│       ├── SKILL.md              # Shared skill definition
+│       ├── agents/openai.yaml    # Codex UI metadata
+│       └── references/           # Supporting docs
+└── codex/                        # Codex-only skill (only when platform-specific, e.g., aura)
 ```
+
+Aura is the only plugin that keeps a `codex/` directory because its Codex SKILL.md has platform-specific inline hooks that can't be shared with the Claude Code variant.

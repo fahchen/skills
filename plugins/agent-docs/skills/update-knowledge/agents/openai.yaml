@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agent Docs Update"
+  short_description: "Capture session learnings into agent documentation"
+  default_prompt: "Use $update-knowledge to record learnings, improvements, and postmortems from this session."
+
+policy:
+  allow_implicit_invocation: true

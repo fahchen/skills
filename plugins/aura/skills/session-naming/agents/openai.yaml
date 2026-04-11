@@ -1,0 +1,8 @@
+interface:
+  display_name: "Aura Session Naming"
+  short_description: "Set descriptive names for Aura HUD session display"
+  brand_color: "#0284C7"
+  default_prompt: "Use $session-naming to set a concise session name in the Aura HUD."
+
+policy:
+  allow_implicit_invocation: true
