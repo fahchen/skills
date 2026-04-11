@@ -54,6 +54,8 @@ Conventions:
   ```
 - **Glossary at `spec/glossary.md`** — shared domain terminology (ubiquitous language) maintained across all discoveries. Table format with Term and Definition columns.
 
+**Path format** — In narrative text and file-system operations, use full paths from `spec/` (e.g., `spec/domains/orders/features/cancellation.feature`). In BDR frontmatter fields (`**Feature**:`) and findings ledger entries, use paths relative to `spec/` (e.g., `domains/orders/features/cancellation.feature`).
+
 Adapt to an existing project layout when one is already established. These conventions apply when starting fresh.
 
 ### Avoiding Monolithic Features

@@ -27,6 +27,7 @@ Create a temporary findings file at `spec/.consistency-check.md` to record obser
 ## Points Observed
 
 <!-- Each point is a factual statement extracted from a spec artifact. -->
+<!-- Paths are relative to spec/ (e.g., domains/orders/features/cancellation.feature) -->
 <!-- Format: [ID] source_file:line — statement -->
 
 - [P1] domains/orders/features/cancellation.feature:12 — Orders can only be cancelled before dispatch
