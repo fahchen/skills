@@ -22,25 +22,26 @@ spec/
 ├── decisions/                             # global decisions (cross-cutting concerns)
 │   ├── BDR-0001-no-cancellation-after-dispatch.md
 │   └── BDR-0002-guest-checkout-rejected.md
-├── orders/                                # domain: order management
-│   └── features/
-│       ├── cancellation.feature           # one focused capability per file
-│       ├── refund.feature
-│       └── order-status.feature
-├── authentication/                        # domain: identity & access
-│   └── features/
-│       ├── login.feature
-│       └── password-reset.feature
-└── checkout/                              # domain: purchase flow
-    └── features/
-        └── cart.feature
+└── domains/
+    ├── orders/                            # domain: order management
+    │   └── features/
+    │       ├── cancellation.feature       # one focused capability per file
+    │       ├── refund.feature
+    │       └── order-status.feature
+    ├── authentication/                    # domain: identity & access
+    │   └── features/
+    │       ├── login.feature
+    │       └── password-reset.feature
+    └── checkout/                          # domain: purchase flow
+        └── features/
+            └── cart.feature
 ```
 
 Conventions:
 
-- **Group by domain** — Each domain (major product area) gets a top-level directory under `spec/` (e.g., `spec/orders/`, `spec/checkout/`). A domain groups related capabilities that share a common actor or concern. Features for that domain live under `spec/<domain>/features/`.
+- **Group by domain** — Each domain (major product area) gets its own directory under `spec/domains/` (e.g., `spec/domains/orders/`, `spec/domains/checkout/`). A domain groups related capabilities that share a common actor or concern. Features for that domain live under `spec/domains/<domain>/features/`.
 - **One focused capability per file** — name the file after the capability (`cancellation.feature`, not `test-1.feature`). The domain directory provides context, so don't repeat it in the filename. Split by business concern to avoid monolithic files (see *Avoiding Monolithic Features* below).
-- **Decisions placement** — Place BDRs in `spec/decisions/` (global, flat) for cross-cutting or project-wide decisions. Alternatively, place them under `spec/<domain>/decisions/` when they are scoped to a single domain. Choose one convention per project and stay consistent. Global placement is simpler and recommended as a default.
+- **Decisions placement** — Place BDRs in `spec/decisions/` (global, flat) for cross-cutting or project-wide decisions. Alternatively, place them under `spec/domains/<domain>/decisions/` when they are scoped to a single domain. Choose one convention per project and stay consistent. Global placement is simpler and recommended as a default.
 - **Progress files live in `spec/.discovery/`** — named `<domain>-<feature>.md` (e.g., `order-cancellation.md`). Include the domain in the filename since `.discovery/` is flat. Hidden directory to avoid clutter. Multiple discoveries can coexist.
 - **Backlog at `spec/backlog.md`** — deferred features and open decisions that don't warrant a full BDR. Not a replacement for BDRs — use BDRs when the *reasoning* behind a deferral matters. The backlog uses a grouped list format:
 
@@ -250,7 +251,7 @@ Transform discovered content into well-formed Gherkin:
 - Group related scenarios under the same Rule block
 - Evaluate whether the output should be split into multiple `.feature` files (see *Avoiding Monolithic Features*). When splitting, present the proposed file breakdown to the user before generating. Each file should have its own Feature narrative and focused set of rules.
 
-Place generated files in `spec/<domain>/features/` (or the established convention).
+Place generated files in `spec/domains/<domain>/features/` (or the established convention).
 
 **Feature files keep only the latest version.** If a `.feature` file already exists for this feature, overwrite it with the new content. There is no versioning for feature files — they represent the current specification.
 
@@ -260,7 +261,7 @@ Create Behaviour Decision Records only for significant decisions — especially 
 
 - Use the standard format for decisions with meaningful context and alternatives
 - Use the lightweight format for minor decisions where a one-liner suffices
-- Place BDR files in `spec/decisions/` (global) or `spec/<domain>/decisions/` (domain-scoped), following the project's established convention
+- Place BDR files in `spec/decisions/` (global) or `spec/domains/<domain>/decisions/` (domain-scoped), following the project's established convention
 
 Skip BDR generation entirely if no non-trivial decisions were made during discovery.
 
@@ -398,7 +399,7 @@ summary: [One-line summary capturing the essence of the decision]
 # superseded-by: BDR-YYYY  # added when this BDR is superseded
 ---
 
-**Feature**: [path relative to spec/ directory, e.g., orders/features/cancellation.feature]
+**Feature**: [path relative to spec/ directory, e.g., domains/orders/features/cancellation.feature]
 **Rule**: [which Rule: this relates to]
 **Supersedes**: BDR-XXXX  <!-- optional, only when overriding a previous decision -->
 
@@ -432,7 +433,7 @@ summary: Rejected guest checkout; authentication required for payment security
 
 ## Scope
 
-**Feature**: checkout/features/cart.feature  <!-- path relative to spec/ directory -->
+**Feature**: domains/checkout/features/cart.feature  <!-- path relative to spec/ directory -->
 **Rule**: Customers must be authenticated to checkout
 **Supersedes**: BDR-XXXX  <!-- optional -->
 
@@ -454,7 +455,7 @@ Do not create BDRs for obvious or uncontested decisions.
 
 ### BDR Numbering
 
-Determine the next BDR number by scanning `spec/decisions/` and all `spec/*/decisions/` directories for the highest existing `BDR-NNNN` and incrementing. BDR numbers are global across all domains. If no BDRs exist yet, start at `BDR-0001`.
+Determine the next BDR number by scanning `spec/decisions/` and all `spec/domains/*/decisions/` directories for the highest existing `BDR-NNNN` and incrementing. BDR numbers are global across all domains. If no BDRs exist yet, start at `BDR-0001`.
 
 ## Quality Criteria
 

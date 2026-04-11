@@ -68,7 +68,7 @@ The refund failure question was deferred and marked `@wip` in the consolidated f
 
 ## Consolidated Feature File
 
-Generated as `spec/orders/features/cancellation.feature` from the progress file above.
+Generated as `spec/domains/orders/features/cancellation.feature` from the progress file above.
 
 ```gherkin
 @orders @cancellation
@@ -144,7 +144,7 @@ Feature: Order Cancellation
 
 ## Standard BDR
 
-Saved as `spec/orders/decisions/BDR-0001-no-cancellation-after-dispatch.md`.
+Saved as `spec/domains/orders/decisions/BDR-0001-no-cancellation-after-dispatch.md`.
 
 ```markdown
 ---
@@ -155,7 +155,7 @@ date: 2026-02-07
 summary: Cut off cancellation at dispatch rather than offering a post-dispatch grace window
 ---
 
-**Feature**: orders/features/cancellation.feature
+**Feature**: domains/orders/features/cancellation.feature
 **Rule**: Orders cannot be cancelled after dispatch
 
 ## Context
@@ -205,7 +205,7 @@ Option B was rejected because:
 
 ## Lightweight BDR
 
-Saved as `spec/orders/decisions/BDR-0002-partial-cancellation-not-supported.md`.
+Saved as `spec/domains/orders/decisions/BDR-0002-partial-cancellation-not-supported.md`.
 
 ```markdown
 ---
@@ -218,7 +218,7 @@ summary: Deferred partial item cancellation; full-order only for initial release
 
 ## Scope
 
-**Feature**: orders/features/cancellation.feature
+**Feature**: domains/orders/features/cancellation.feature
 **Rule**: Orders can be cancelled before dispatch
 
 ## Reason
@@ -270,10 +270,11 @@ After consolidation, the progress file is removed. The resulting tree:
 ```
 spec/
 ├── glossary.md
-└── orders/
-    ├── features/
-    │   └── cancellation.feature
-    └── decisions/
-        ├── BDR-0001-no-cancellation-after-dispatch.md
-        └── BDR-0002-partial-cancellation-not-supported.md
+└── domains/
+    └── orders/
+        ├── features/
+        │   └── cancellation.feature
+        └── decisions/
+            ├── BDR-0001-no-cancellation-after-dispatch.md
+            └── BDR-0002-partial-cancellation-not-supported.md
 ```
