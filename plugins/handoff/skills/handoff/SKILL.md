@@ -41,8 +41,8 @@ Do not invoke this skill implicitly.
 
 ## Output
 
-Follow [../../references/template.md](../../references/template.md).
+Follow [references/template.md](references/template.md).
 
-Use [../../references/examples.md](../../references/examples.md) for a worked example.
+Use [references/examples.md](references/examples.md) for a worked example.
 
-Use [../../references/placement.md](../../references/placement.md) for the default output location and naming rules.
+Use [references/placement.md](references/placement.md) for the default output location and naming rules.
