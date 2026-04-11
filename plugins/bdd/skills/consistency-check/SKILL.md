@@ -32,7 +32,7 @@ Create a temporary findings file at `spec/.consistency-check.md` to record obser
 
 - [P1] domains/orders/features/cancellation.feature:12 — Orders can only be cancelled before dispatch
 - [P2] domains/shipping/features/dispatch.feature:8 — Dispatch status is set when carrier confirms pickup
-- [P3] domains/orders/decisions/BDR-0001.md — No cancellation after dispatch (accepted)
+- [P3] decisions/BDR-0001.md — No cancellation after dispatch (accepted)
 
 ## Conflicts Detected
 

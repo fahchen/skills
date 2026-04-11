@@ -19,7 +19,7 @@ The user modified `spec/domains/orders/features/cancellation.feature` to allow c
 
 - [P1] domains/orders/features/cancellation.feature:14 — Orders can be cancelled up to 1 hour after dispatch (CHANGED)
 - [P2] domains/orders/features/cancellation.feature:22 — Cancellation after 1-hour window is rejected (CHANGED)
-- [P3] domains/orders/decisions/BDR-0001.md — No cancellation after dispatch (accepted)
+- [P3] decisions/BDR-0001.md — No cancellation after dispatch (accepted)
 - [P4] domains/shipping/features/dispatch.feature:10 — Dispatch triggers carrier pickup immediately
 - [P5] domains/orders/features/cancellation.feature:30 — Refund is issued on cancellation (CHANGED — now includes post-dispatch partial refund)
 - [P6] glossary.md — "Dispatched" = order handed to carrier, irreversible
@@ -96,8 +96,10 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 - [P7] domains/authentication/features/login.feature:18 — Churned subscribers retain read-only access for 90 days
 - [P8] domains/orders/features/loyalty.feature:12 — Members earn 1 point per dollar spent
 - [P9] domains/orders/features/loyalty.feature:20 — Churned subscribers lose all points immediately
-- [P10] domains/orders/decisions/BDR-0002.md — Partial cancellation not supported (deferred)
+- [P10] decisions/BDR-0002.md — Partial cancellation not supported (deferred)
 - [P11] domains/orders/features/cancellation.feature:35 — Scenario: "Customer cancels one item from multi-item order"
+- [P12] backlog.md:5 — Deferred: "Gift card payments" (discovered: 2026-02-10)
+- [P13] domains/checkout/features/gift-card-payments.feature:1 — Feature: Gift Card Payments
 
 ## Conflicts Detected
 
@@ -112,6 +114,12 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 - **Nature**: decision reversal
 - **Detail**: Cancellation feature has a scenario for single-item cancellation from a multi-item order, but BDR-0002 explicitly deferred partial cancellation.
 - **Severity**: breaking
+
+### C4: Gift card payments listed as deferred but feature exists
+- **Points**: P12 vs P13
+- **Nature**: stale backlog
+- **Detail**: Backlog lists "Gift card payments" as a deferred feature, but `domains/checkout/features/gift-card-payments.feature` now exists.
+- **Severity**: cosmetic
 
 ### C3: Churned subscriber point forfeiture vs retention access
 - **Points**: P9 vs P7
@@ -135,7 +143,7 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 > **C2 (breaking): Partial cancellation scenario exists despite deferral**
 >
 > - `domains/orders/features/cancellation.feature:35` has a scenario for cancelling one item from a multi-item order
-> - `domains/orders/decisions/BDR-0002` explicitly deferred partial cancellation
+> - `decisions/BDR-0002` explicitly deferred partial cancellation
 >
 > Options:
 > 1. **Remove the scenario** — Align with BDR-0002's deferral decision
@@ -151,6 +159,15 @@ A full scan of `spec/` with three domains: `domains/orders`, `domains/shipping`,
 > 1. **Document as intentional** — Add a comment or BDR noting the deliberate asymmetry
 > 2. **Grace period for points too** — Align point forfeiture with the 90-day retention window
 > 3. **No action** — Accept the current state as-is (different policies for different concerns)
+>
+> **C4 (cosmetic): Gift card payments — backlog says deferred but feature exists**
+>
+> - `backlog.md:5` lists "Gift card payments" as a deferred feature
+> - `domains/checkout/features/gift-card-payments.feature` now implements it
+>
+> Options:
+> 1. **Remove from backlog** — The feature has been implemented; the deferral is stale
+> 2. **No action** — Keep the backlog entry as historical context
 
 ---
 

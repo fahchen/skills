@@ -144,7 +144,7 @@ Feature: Order Cancellation
 
 ## Standard BDR
 
-Saved as `spec/domains/orders/decisions/BDR-0001-no-cancellation-after-dispatch.md`.
+Saved as `spec/decisions/BDR-0001-no-cancellation-after-dispatch.md`.
 
 ```markdown
 ---
@@ -205,7 +205,7 @@ Option B was rejected because:
 
 ## Lightweight BDR
 
-Saved as `spec/domains/orders/decisions/BDR-0002-partial-cancellation-not-supported.md`.
+Saved as `spec/decisions/BDR-0002-partial-cancellation-not-supported.md`.
 
 ```markdown
 ---
@@ -234,7 +234,7 @@ No BDR was generated for the "Refund failure handling" deferral because no alter
 
 ## Post-Consolidation Conflict Check
 
-Scanned all domains in `spec/` for existing `.feature` files and BDRs. No other features or decisions existed yet, so no conflicts were found. In a project with existing specifications, any contradictions would be presented to the user with resolution options before proceeding.
+Scanned `spec/domains/` and `spec/decisions/` for existing `.feature` files and BDRs. No other features or decisions existed yet, so no conflicts were found. In a project with existing specifications, any contradictions would be presented to the user with resolution options before proceeding.
 
 ---
 
@@ -270,11 +270,11 @@ After consolidation, the progress file is removed. The resulting tree:
 ```
 spec/
 ├── glossary.md
+├── decisions/
+│   ├── BDR-0001-no-cancellation-after-dispatch.md
+│   └── BDR-0002-partial-cancellation-not-supported.md
 └── domains/
     └── orders/
-        ├── features/
-        │   └── cancellation.feature
-        └── decisions/
-            ├── BDR-0001-no-cancellation-after-dispatch.md
-            └── BDR-0002-partial-cancellation-not-supported.md
+        └── features/
+            └── cancellation.feature
 ```
