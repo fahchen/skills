@@ -16,10 +16,16 @@ Personal Claude Code plugins and matching Codex skills, co-located per plugin un
 
 ### Codex
 
-Copy the skill you want from `plugins/<skill-name>/codex/` into `~/.codex/skills/`, then restart Codex.
+Copy the plugin directory into `~/.codex/plugins/`, then restart Codex. Codex discovers skills via `.codex-plugin/plugin.json`.
 
 ```bash
-cp -R plugins/<skill-name>/codex ~/.codex/skills/<skill-name>
+cp -R plugins/<plugin-name> ~/.codex/plugins/<plugin-name>
+```
+
+For plugins without a `.codex-plugin/` manifest, copy the `codex/` subdirectory as a skill:
+
+```bash
+cp -R plugins/<plugin-name>/codex ~/.codex/skills/<plugin-name>
 ```
 
 ## Available Plugins
@@ -37,7 +43,7 @@ Real-time HUD integration for Claude Code and Codex sessions.
 BDD discovery and consistency-checking workflows for specification work.
 
 - Claude Code: `/plugin install bdd@fahchen-skills`
-- Codex: `cp -R plugins/bdd/codex ~/.codex/skills/bdd`
+- Codex: `cp -R plugins/bdd ~/.codex/plugins/bdd`
 
 ### agent-docs
 
@@ -62,31 +68,44 @@ Engineering workflow guidance for planning, implementation, and code review.
 
 ## Releasing a New Version
 
-When updating a plugin, bump the version in **all three places** (keep them in sync):
+When updating a plugin, bump the version in the plugin manifest(s):
 
-1. `.claude-plugin/marketplace.json` — the `version` field for the plugin entry
-2. `plugins/<name>/claude-code/.claude-plugin/plugin.json` — the Claude Code plugin version
-3. `plugins/<name>/codex/SKILL.md` — the `version:` frontmatter field
+- `plugins/<name>/.claude-plugin/plugin.json` — Claude Code plugin version
+- `plugins/<name>/.codex-plugin/plugin.json` — Codex plugin version (if unified structure)
+- `plugins/<name>/codex/SKILL.md` — Codex skill version frontmatter (if legacy structure)
 
 Use semantic versioning: patch for fixes/copy, minor for new features/rules, major for breaking API changes.
 
 ## Structure
 
+Plugins use either a unified or split layout:
+
+### Unified (preferred — e.g., bdd)
+
+Both platforms share `skills/`, discovered via their respective manifests.
+
 ```text
-skills/
-├── .claude-plugin/
-│   └── marketplace.json
-└── plugins/
-    └── <plugin>/
-        ├── claude-code/         # Claude Code plugin
-        │   ├── .claude-plugin/
-        │   │   └── plugin.json
-        │   ├── commands/
-        │   ├── hooks/
-        │   ├── references/
-        │   └── skills/
-        └── codex/               # Codex skill
-            ├── agents/
-            ├── references/
-            └── SKILL.md
+plugins/<plugin>/
+├── .claude-plugin/plugin.json    # Claude Code manifest
+├── .codex-plugin/plugin.json     # Codex manifest (skills: ./skills/)
+└── skills/
+    └── <skill>/
+        ├── SKILL.md              # Shared skill definition
+        ├── agents/openai.yaml    # Codex UI metadata
+        └── references/
+```
+
+### Split (legacy — e.g., aura, handoff)
+
+Separate directories per platform.
+
+```text
+plugins/<plugin>/
+├── claude-code/
+│   ├── .claude-plugin/plugin.json
+│   └── skills/
+└── codex/
+    ├── agents/openai.yaml
+    ├── SKILL.md
+    └── references/
 ```
