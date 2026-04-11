@@ -1,5 +1,7 @@
 ---
-description: Capture learnings from current session into agent documentation
+name: update-knowledge
+description: Capture learnings from current session into agent documentation. Use when the user asks to "update project knowledge", "capture session learnings", or "record improvements or postmortems".
+user-invocable: true
 ---
 
 # Update Project Knowledge

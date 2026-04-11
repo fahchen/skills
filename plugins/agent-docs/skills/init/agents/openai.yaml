@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agent Docs Init"
+  short_description: "Initialize docs/agents/ knowledge base structure"
+  default_prompt: "Use $init to bootstrap a tiered agent knowledge base for this project."
+
+policy:
+  allow_implicit_invocation: true

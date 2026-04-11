@@ -7,12 +7,12 @@
   "plugins": [
     {
       "name": "aura",
-      "source": "./plugins/aura/claude-code",
+      "source": "./plugins/aura",
       "description": "Real-time HUD for Claude Code sessions - displays status, tools, and attention indicators"
     },
     {
       "name": "agent-docs",
-      "source": "./plugins/agent-docs/claude-code",
+      "source": "./plugins/agent-docs",
       "description": "Tiered agent knowledge base — compact guardrails, implementation catalog, and postmortems with graduated learning"
     },
     {
@@ -22,12 +22,12 @@
     },
     {
       "name": "handoff",
-      "source": "./plugins/handoff/claude-code",
+      "source": "./plugins/handoff",
       "description": "Concise handoff notes for ongoing work — capture status, completed work, human decisions, blockers, and one concrete next step"
     },
     {
       "name": "workflow",
-      "source": "./plugins/workflow/claude-code",
+      "source": "./plugins/workflow",
       "description": "Engineering workflow: reasoning framework, plan/code modes, code quality, and git conventions"
     }
   ]

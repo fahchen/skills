@@ -1,5 +1,7 @@
 ---
-description: Initialize agent documentation structure (docs/agents/) for a project
+name: init
+description: Initialize agent documentation structure (docs/agents/) for a project. Use when the user asks to "initialize agent docs", "bootstrap docs/agents/", or "set up project knowledge files".
+user-invocable: true
 allowed-tools: Write, Edit, Read, Glob, Bash(mkdir:*)
 ---
 
