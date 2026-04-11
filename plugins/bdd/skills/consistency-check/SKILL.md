@@ -105,7 +105,8 @@ Present all conflicts as a batch. Ask the user to confirm, adjust, or reject eac
 For confirmed resolutions:
 
 - Modify the existing spec files to align with the changes
-- If a BDR requires a **conflicting change** (decision reversal or contradictory reasoning), create a new superseding BDR rather than editing the existing body — never overwrite a BDR body when the change introduces a contradiction
+- If a BDR requires a **conflicting change** (decision reversal or contradictory reasoning), create a new superseding BDR rather than editing the existing body — never overwrite a BDR body when the change introduces a contradiction. Do not offer direct editing as an option for already-merged BDRs.
+- **Exception — unmerged BDRs**: if the conflicting BDR was introduced in the same PR or branch (not yet merged), offer the user the option to edit it directly instead of superseding. Only proceed with direct editing if the user confirms — an unmerged BDR has no historical record to preserve, but the decision is still the user's.
 - If a BDR only needs **completion or supplementation** (adding missing detail or expanding context without changing the decision conclusion), the body may be edited directly
 - Update glossary if term definitions changed
 - Record each resolution in the findings ledger
